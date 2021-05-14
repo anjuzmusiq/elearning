@@ -1,15 +1,20 @@
 <?php
-	session_start();
+session_start();
+include ("..\class\connect.php");
+include ("..\class\cls_login.php");
+include("..\class\alert.php");
+$retval=1;
+$errmsg="";
+$email=$_SESSION['username']; 
+if(isset($_POST['submit']))
+{
+    $oldpassword=md5($_POST['oldpassword']);
+    $password=md5($_POST['password']);
+	$loginobj= new adminLogin();
+	$retval=$loginobj->changepassword($email,$oldpassword,$password);
 
-	if(isset($_SESSION['username'])){
-
-	}
-	else {
-		header("location: login.php");
-	}
-
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +28,7 @@
 	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../../css/fonts.min.css']},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../css/fonts.min.css']},
 			active: function() {
 				sessionStorage.fonts = true;
 			}
@@ -35,9 +40,10 @@
 	<link rel="stylesheet" href="../css/atlantis.min.css">
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link rel="stylesheet" href="css/demo.css">
+	<link rel="stylesheet" href="../css/demo.css">
 </head>
 <body>
+
 	<div class="wrapper">
 		<div class="main-header">
 			<!-- Logo Header -->
@@ -60,6 +66,7 @@
 			</div>
 			<!-- End Logo Header -->
 
+			<!-- Navbar and sidebar -->
 			<nav  class="navbar navbar-header bg-dark  navbar-expand-lg"  >
 				
 				<div class="container-fluid">
@@ -97,10 +104,10 @@
 						</div>
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-								<span>
-									
-									<span class="user-level" style=" margin-top:15px;">Administrator</span>
-									
+								<span>	
+								<a class="user-level" href="index.php">
+                                        <span style=" margin-top:15px;" class="user-level fw-bold" onclick="hide(); return false">Administrator</span>
+                                    </a>									
 								</span>
 							</a>
 							<!--<div class="clearfix"></div>
@@ -165,26 +172,70 @@
 			</div>
 		</div>
 
-		<div  class="main-panel ">
-			<div style="" class="content bg-light">
-			<div class="col-md-12">
-			<div class="card mt-4 bg-light">
+			<!-- End Navbar and sidebar -->
 
+
+
+		<div  class="main-panel align-middle ">
+			<div style="" class="bg-light content">
+
+				<div class="col-md-12 ">
+					<div class="card mt-4 bg-light">
+						<div class="card-header">
+							<div class="card-title">
+								Change Password
 							</div>
 						</div>
-					</form>
+						<div class="card-body">
+							<div class="col-md-5 mr-auto ml-auto ">
+								<div class="card mt-4  bg-light">
+									<div class="card-header">
+										<div class="card-title">
+                                            Change Password
+										</div>
+									</div>
+									<div class="card-body">
+										<form method="POST" action="" name="f1" onsubmit="return validateform()">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Old password</label>
+												<input type="password" class="form-control" id="exampleInputEmail1" name="oldpassword" aria-describedby="emailHelp" placeholder="Enter existing password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : '');" required>
+												<p style = "color: red;"><?php echo $errmsg; ?></p>
+											</div>
+                                            <div class="form-group">
+												<label for="exampleInputEmail1">New password</label>
+												<input type="password" class="form-control" id="exampleInputEmail1" name="password" aria-describedby="emailHelp" placeholder="Enter New Password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : '');" required>
+												<p style = "color: red;"><?php echo $errmsg; ?></p>
+											</div>
+                                            <div class="form-group">
+												<label for="exampleInputEmail1">Confirm new password</label>
+												<input type="password" class="form-control" id="exampleInputEmail1" name="cpassword" aria-describedby="emailHelp"placeholder="Confirm New Password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : '');" required>
+												<p style = "color: red;"><?php echo $errmsg; ?></p>
+											</div>
+											<button type="submit" name="submit" class="btn btn-primary ml-1 float-right">Submit</button>
+										</form>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
 			</div>
 		 <footer class="footer bg-dark2">
+				
+					
 					<div class="copyright ml-auto text-center">
 						 Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
 					</div>				
+				
 			</footer> 
 
 
 			<!--<footer  class=" bg-dark2 text-center text-lg-start">
-				 Copyright -->
+				<!-- Copyright -->
 				<!--<div class="text-center p-3" >
-				  ï¿½ 2020 Copyright:
+				  © 2020 Copyright:
 				  <a class="text-light" href="">Web development team SSTM</a>
 				</div>-->
 				<!-- Copyright -->
@@ -196,7 +247,7 @@
 		<!-- End Custom template -->
 	</div>
 	<!--   Core JS Files   -->
-	<script src="../js/core/jquery.3.2.1.min.js"></script>
+    <script src="../js/core/jquery.3.2.1.min.js"></script>
     <script src="../js/core/popper.min.js"></script>
     <script src="../js/core/bootstrap.min.js"></script>
     <!-- jQuery UI -->
@@ -211,63 +262,93 @@
     <script src="../js/atlantis.min.js"></script>
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="../js/setting-demo2.js"></script>
-	<script src="../js/plugin/datatables/datatables.min.js"></script>
+
 
 	<script>
-	document.getElementById('select-all').onclick = function() {
-            var checkboxes = document.getElementsByClassName('check-all');
-            for (var checkbox of checkboxes) {
-                checkbox.checked = this.checked;
-                }
+    function passwordsame()
+{
+$.notify({
+    // options
+    icon: 'glyphicon glyphicon-warning-sign',
+    title: 'Warning..!',
+    message: 'Password must be same..',
+    target: '_blank'
+},{
+    // settings
+    element: 'body',
+    position: null,
+    type: "info",
+    allow_dismiss: true,
+    newest_on_top: false,
+    showProgressbar: false,
+    placement: {
+        from: "top",
+        align: "center"
+    },
+    offset: 20,
+    spacing: 10,
+    z_index: 1031,
+    delay: 5000,
+    timer: 2000,
+    url_target: '_blank',
+    mouse_over: null,
+    animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+    },
+    onShow: null,
+    onShown: null,
+    onClose: null,
+    onClosed: null,
+    icon_type: 'class',
+    template: '<div style="background-color:#fff5c8" data-notify="container" class="col-xs-11 col-sm-3 alert alert-warning" role="alert">' +
+        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+        '<span data-notify="icon"></span> ' +
+        '<span data-notify="title">{1}</span> ' +
+        '<span style="color:#4d2e1a" data-notify="message">{2}</span>' +
+        '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+        '</div>' +
+        '<a href="{3}" target="{4}" data-notify="url"></a>' +
+    '</div>' 
+});
+}
+</script>
+
+<script>
+function validateform()
+        {
+            var a=document.f1.cpassword.value;
+            var b=document.f1.password.value;
+            if(a==b){
+                return true;
+            }
+            else{
+                passwordsame();
+                return false;
             }
 
-			function searchFunction() {
-			var input, filter, table, tr, td, i, txtValue;
-			input = document.getElementById("searchId");
-			filter = input.value.toUpperCase();
-			table = document.getElementById("tableId");
-			tr = table.getElementsByTagName("tr");
-			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[0];
-				if (td) {
-				txtValue = td.textContent || td.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-						}
-					}       
-				}
-			}
-			
-        // $(document).ready(function() {
-        //     $('#basic-datatables').DataTable({
-        //     });
-
-        //     $('#multi-filter-select').DataTable( {
-        //         "pageLength": 5,
-        //         initComplete: function () {
-        //             this.api().columns().every( function () {
-        //                 var column = this;
-        //                 var select = $('<select class="form-control"><option value=""></option></select>')
-        //                 .appendTo( $(column.footer()).empty() )
-        //                 .on( 'change', function () {
-        //                     var val = $.fn.dataTable.util.escapeRegex(
-        //                         $(this).val()
-        //                         );
-
-        //                     column
-        //                     .search( val ? '^'+val+'$' : '', true, false )
-        //                     .draw();
-        //                 } );
-
-        //                 column.data().unique().sort().each( function ( d, j ) {
-        //                     select.append( '<option value="'+d+'">'+d+'</option>' )
-        //                 } );
-        //             } );
-        //         }
-        //     });});
-	</script>
-
+        }
+</script>
+<?php
+if(isset($_SESSION['successFlag'])){
+    if(($_SESSION['successFlag'])==1){
+        custom_alert("Success..!","Password changed successfully","success");
+        unset($_SESSION['successFlag']);
+    }
+}
+if(isset($_SESSION['passwordFlag'])){
+    if(($_SESSION['passwordFlag'])==1){
+        custom_alert("Warning..!","Password not found","warning");
+        unset($_SESSION['passwordFlag']);
+    }
+}
+if(isset($_SESSION['errorFlag'])){
+    if(($_SESSION['errorFlag'])==1){
+        custom_alert("Warning..!","Error in changing","warning");
+        unset($_SESSION['errorFlag']);
+    }
+}
+?>
 </body>
 </html>
