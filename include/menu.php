@@ -87,6 +87,9 @@
 							<a href="../program/index.php"><p>Program</p></a>
 						</li>
 						<li class="nav-item">
+							<a href="../subject/index.php"><p>Subject</p></a>
+						</li>
+						<li class="nav-item">
 							<a href="../faculty/index.php"><p>Faculty</p></a>
 						</li>
 						<li class="nav-item">

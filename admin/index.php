@@ -149,6 +149,9 @@
 							<a href="program/"><p>Program</p></a>
 						</li>
 						<li class="nav-item">
+							<a href="subject/"><p>Subject</p></a>
+						</li>
+						<li class="nav-item">
 							<a href="faculty/"><p>Faculty</p></a>
 						</li>
 						<li class="nav-item">
