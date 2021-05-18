@@ -82,7 +82,7 @@
 					<div class="card mt-4 bg-light">
 						<div class="card-header">
 							<div class="card-title">
-								Add Department 
+								<h3 style="font-size: 30px; display: inline-block;"> Program </h3>
 							</div>
 						</div>
 						<div class="card-body">
@@ -90,14 +90,14 @@
 								<div class="card mt-4  bg-light">
 									<div class="card-header">
 										<div class="card-title">
-											Add Data
+											Add Program
 										</div>
 									</div>
 									<div class="card-body">
 										<form action="" method="POST">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Enter Program</label>
-												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Program">
+												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Program">
 												 <p style = "color: red;"><?php echo $errMsg; ?></p>   
 											</div>
 											<button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>

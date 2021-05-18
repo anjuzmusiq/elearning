@@ -144,9 +144,9 @@ if(isset($_POST['publish'])){
 			<div class="card mt-4 bg-light">
 								<div class="card-header">
 								<form method='post' name="form1" action=''>
-									<div class="card-title">
-										<h2>Semester </h2>
-									</div>
+							<div class="card-title"> 
+                                <h3 style="font-size: 30px; display: inline-block;">Semester</h3>
+                            </div>
 								</div>
 								<div style="margin: 0px;" class="card-sub">
 									<input  type="button" value="Add" onClick="window.location='new.php';" class="btn btn-primary float-right ml-2">
@@ -172,9 +172,9 @@ if(isset($_POST['publish'])){
 														</div>
 													</th>
 													<th>Semester</th>
-													<th>Status</th>
-													<th>Edit</th>
-													<th>Delete</th>
+													<th class="text-center">Status</th>
+													<th class="text-center">Edit</th>
+													<th class="text-center">Delete</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -198,13 +198,13 @@ if(isset($_POST['publish'])){
 														</div> 
 													</th>
 													<td><?php echo $row['sName'];?></td>
-													<td ><?php if($row['iStatus']==1) echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>"; else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";?></td>
-													<td style="width:20%" ><a href="update.php?uid=<?php echo $row['ID'];?>">
+													<td class="text-center"><?php if($row['iStatus']==1) echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>"; else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";?></td>
+													<td class="text-center" style="width:20%" ><a href="update.php?uid=<?php echo $row['ID'];?>">
                                                     <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">
 																<i class="fa fa-edit"></i>
 															</button></i></a>
                                                     </td>
-                                                    <td style="width:20%">
+                                                    <td class="text-center" style="width:20%">
 														<button type="button" data-toggle="modal" title="" data-target="#exampleModal<?php echo $row['ID'];?>" class="btn btn-link btn-danger btn-lg" data-original-title="Delete">
 																<i class="fa fa-trash-alt"></i>
 															</button></i>

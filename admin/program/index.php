@@ -151,7 +151,7 @@
 															</label>
 														</div>
 													</th>
-													<th class = "text-center">Program</th>
+													<th>Program</th>
 													<th class = "text-center">Status</th>
 													<th class = "text-center">Edit</th>
 													<th class = "text-center">Delete</th>
@@ -172,7 +172,7 @@
 															</label>
 														</div>
 													</th>
-													<td class = "text-center"><?php echo $row['sName']; ?></td>
+													<td><?php echo $row['sName']; ?></td>
 													<td class = "text-center"><?php 
 														if($row['iStatus'] == 1) {
 															echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>";

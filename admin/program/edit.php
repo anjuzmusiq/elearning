@@ -87,7 +87,7 @@
 					<div class="card mt-4 bg-light">
 						<div class="card-header">
 							<div class="card-title">
-								Update Department 
+							<h3 style="font-size: 30px; display: inline-block;">Program</h3>
 							</div>
 						</div>
 						<div class="card-body">
@@ -97,7 +97,7 @@
 										<form action="" method="POST">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Update Program</label>
-												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Program" value="<?php echo $row['sName']; ?>">
+												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Program" value="<?php echo $row['sName']; ?>">
 											</div>
 											<button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>
 											<a href="index.php"><input type="button" value="Cancel" class="btn btn-danger float-right"></a>
