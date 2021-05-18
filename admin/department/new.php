@@ -87,16 +87,16 @@ if(isset($_POST['submit']))
 				<div class="col-md-12 ">
 					<div class="card mt-4 bg-light">
 						<div class="card-header">
-							<div class="card-title">
-								Add Department 
-							</div>
+						<div class="card-title"> 
+                                <h3 style="font-size: 30px; display: inline-block;">Department</h3>
+                            </div>
 						</div>
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
 									<div class="card-header">
 										<div class="card-title">
-											Add New Department
+											Add Department
 										</div>
 									</div>
 									<div class="card-body">

@@ -93,9 +93,9 @@
 				<div class="col-md-12 ">
 					<div class="card mt-4 bg-light">
 						<div class="card-header">
-							<div class="card-title">
-								Update Department 
-							</div>
+						<div class="card-title"> 
+                                <h3 style="font-size: 30px; display: inline-block;">Department</h3>
+                            </div>
 						</div>
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">

@@ -123,9 +123,6 @@ if(isset($_POST['unpublish'])){
 			<div style="" class="content bg-light">
 
 
-
-
-
 			<div class="col-md-12">
 			<div class="card mt-4 bg-light">
 			<div class="card-header">

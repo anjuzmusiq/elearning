@@ -128,21 +128,22 @@ if(isset($_POST['unpublish'])){
 
 			<div class="col-md-12">
 			<div class="card mt-4 bg-light">
-								<div class="card-header">
-								<form method='post' action=''>
-									<div class="card-title">Department 
-									<input type="button" value="Add" onClick="window.location='new.php';" class="btn btn-primary float-right ml-2">
+			<div class="card-header">
+                            <form action="" method="POST">
+                            <div class="card-title"> 
+                                <h3 style="font-size: 30px; display: inline-block;">Department</h3>
+                            </div>
+                        </div>
+                        <div style="margin: 0px;" class="card-sub">
+						<input type="button" value="Add" onClick="window.location='new.php';" class="btn btn-primary float-right ml-2">
 									<input type="button" value="Delete" data-toggle="modal" title="" data-target="#deleteModal" data-original-title="Delete"class="btn btn-primary float-right ml-2">
 									<input type="submit" value="Publish" name="publish"  class="btn btn-primary float-right ml-2">
 									<input type="submit" value="Unpublish" name="unpublish" class="btn btn-primary float-right ml-2">
+								<!---start of search---->
+                            <input id="searchId" style="width:300px !important;" type="search" onkeyup="searchFunction()" class="form-control ml-auto float-left" placeholder="Search" aria-label="Search"
+                            aria-describedby="search-addon"/>
+                        </div>
 
-									</div>
-								</div>
-								<!---search---->
-									<div style="margin: 0px;" class="card-sub">
-											<input id="searchId" style="width:300px !important;" type="search" onkeyup="searchFunction()" class="form-control ml-auto" placeholder="Search" aria-label="Search"
-											aria-describedby="search-addon" />
-									</div>
 								<!---end of search---->
 								<div class="card-body">
 			
