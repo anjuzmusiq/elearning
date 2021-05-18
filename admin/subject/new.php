@@ -1,33 +1,27 @@
 <?php
-	include ("..\..\class\connect.php");
-	include ("..\..\class\cls_dept.php");
-	
-	$retval=1;
-	$errMsg="";
-    $updateid = $_GET['updateid'];
-    if(isset($_GET['updateid'])){
-        $edit="SELECT * from tbl_department where ID=$updateid";
-        $updateQuery=mysqli_query($con,$edit);
-        $row=mysqli_fetch_array($updateQuery);
-    }
-    if(isset($_POST['pname'])){
-		if (empty($_POST["pname"])) {
-			$errMsg="Field cannot be empty!";
-		}
-		else {
-        $editname = $_POST['pname'];
-		$editid= $updateid;
-		$deptobj= new Department();
-		$retval=$deptobj->updateDept($editid,$editname);
-		if($retval==1)
-		{			
+include ("..\..\class\connect.php");
+include ("..\..\class\cls_subject.php");
+$retval=1;
+$errmsg="";
+if(isset($_POST['submit']))
+{
+	if (empty($_POST['subject'])) 
+	{
+		$errmsg="Please enter a value";
+	}
+	else{
+	$subject=$_POST['subject'];
+	$programid=$_POST['programid'];	
+	$subobj= new Subject();
+	$retval=$subobj->addSub($subject,$programid);
+	if($retval==1)
+		{
 			$_SESSION['successFlag']=1;
 			header("Location: index.php");
 		}
-		}
 	}
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,6 +50,7 @@
 	<link rel="stylesheet" href="../../css/demo.css">
 </head>
 <body>
+
 	<div class="wrapper">
 		<div class="main-header">
 			<!-- Logo Header -->
@@ -94,40 +89,64 @@
 					<div class="card mt-4 bg-light">
 						<div class="card-header">
 							<div class="card-title">
-								Update Department 
+							<h3 style="font-size: 30px; display: inline-block;">Subject</h3>
 							</div>
 						</div>
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
+									<div class="card-header">
+										<div class="card-title">
+											Add Subject
+										</div>
+									</div>
 									<div class="card-body">
-										<form action="" method="POST">
+										<form method="POST" action="">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Update Department</label>
-												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Program" value="<?php echo $row['sName']; ?>"required>
-												 <p style = "color: red;"><?php echo $errMsg; ?></p>   
+												<label for="exampleInputEmail1">Subject</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="subject" aria-describedby="emailHelp" placeholder="Enter Subject"required>
+												<p style = "color: red;"><?php echo $errmsg; ?></p>
 											</div>
-											<button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>
+											<div class="form-group">
+											<label for="exampleInputEmail1">Program</label>
+												<select class="form-control" name="programid" id="formGroupDefaultSelect" aria-describedby="emailHelp" required>
+<?php
+$sql2="SELECT * from tbl_program where iStatus=1";
+$s2=mysqli_query($con,$sql2);
+while(($row2=mysqli_fetch_array($s2))==TRUE)
+{?>	
+													<option value="<?php echo $row2['ID'];?>"><?php echo $row2['sName'];?></option>
+<?php
+}
+?>
+												</select>
+											</div>
+											<button type="submit" name="submit" class="btn btn-primary ml-1 float-right">Submit</button>
 											<a href="index.php"><input type="button" value="Cancel" class="btn btn-danger float-right"></a>
 										</form>
 									</div>
 								</div>
 							</div>
+
+
 						</div>
 					</div>
 				</div>
 			</div>
 		 <footer class="footer bg-dark2">
-                <div class="copyright ml-auto text-center">
-                        Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
-                </div>				
+				
+					
+					<div class="copyright ml-auto text-center">
+						 Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
+					</div>				
+				
 			</footer> 
 
 
 			<!--<footer  class=" bg-dark2 text-center text-lg-start">
 				<!-- Copyright -->
 				<!--<div class="text-center p-3" >
-				  Â© 2020 Copyright:
+				  © 2020 Copyright:
 				  <a class="text-light" href="">Web development team SSTM</a>
 				</div>-->
 				<!-- Copyright -->
@@ -139,7 +158,7 @@
 		<!-- End Custom template -->
 	</div>
 	<!--   Core JS Files   -->
-	<script src="../../js/core/jquery.3.2.1.min.js"></script>
+    <script src="../../js/core/jquery.3.2.1.min.js"></script>
     <script src="../../js/core/popper.min.js"></script>
     <script src="../../js/core/bootstrap.min.js"></script>
     <!-- jQuery UI -->
@@ -155,7 +174,7 @@
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="../../js/setting-demo2.js"></script>
 
-	<?php
+<?php
     if($retval==2){
 ?>
 	<script>
@@ -163,7 +182,7 @@ $.notify({
     // options
     icon: 'glyphicon glyphicon-warning-sign',
     title: 'Duplicate entry..!',
-    message: 'The department you entered already exists..',
+    message: 'The Subject you entered already exists..',
     target: '_blank'
 },{
     // settings
