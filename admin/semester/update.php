@@ -92,8 +92,8 @@
 			
 
 				<div class="col-md-12 ">
-					<div class="card mt-4 bg-light">
-						<div class="card-header">
+					<div class="card mt-4 bg-white">
+						<div class="card-header bg-white">
 						<div class="card-title"> 
                                 <h3 style="font-size: 30px; display: inline-block;">Semester</h3>
                             </div>
@@ -101,10 +101,10 @@
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
-									<div class="card-body">
+									<div class="card-body bg-white">
 										<form action="" method="POST">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Update Semester</label>
+												<label for="exampleInputEmail1">Edit Semester</label>
 												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Program" value="<?php echo $row['sName']; ?>">
 												 <p style = "color: red;"><?php echo $errMsg; ?></p>   
 											</div>

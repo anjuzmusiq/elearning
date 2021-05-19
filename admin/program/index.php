@@ -122,14 +122,14 @@
 		<div  class="main-panel ">
 			<div class="content bg-light">
 			<div class="col-md-12">
-			<div class="card mt-4 bg-light">
+			<div class="card mt-4 bg-white">
 						<div class="card-header">
 							<form action="" method="POST">
 							<div class="card-title"> 
 								<h3 style="font-size: 30px; display: inline-block;"> Program </h3>
 							</div>
                         </div>
-						<div style="margin: 0px;" class="card-sub">
+						<div style="margin: 0px;" class="card-sub bg-white">
 							<input type="button" value="Add" onClick="window.location='new.php';" class="btn btn-primary float-right ml-1">
 							<input type="button" data-toggle="modal" data-target="#buttonDelete" value="Delete"  class="btn btn-primary float-right ml-1">
 							<input type="submit" name="active" value="Publish" class="btn btn-primary float-right ml-1">

@@ -141,14 +141,14 @@ if(isset($_POST['publish'])){
 
 
 			<div class="col-md-12">
-			<div class="card mt-4 bg-light">
+			<div class="card mt-4 bg-white">
 								<div class="card-header">
 								<form method='post' name="form1" action=''>
 							<div class="card-title"> 
                                 <h3 style="font-size: 30px; display: inline-block;">Semester</h3>
                             </div>
 								</div>
-								<div style="margin: 0px;" class="card-sub">
+								<div style="margin: 0px;" class="card-sub bg-white">
 									<input  type="button" value="Add" onClick="window.location='new.php';" class="btn btn-primary float-right ml-2">
 									<input type="button" value="Delete" data-toggle="modal" title="" data-target="#deleteModal" data-original-title="Delete"class="btn btn-primary float-right ml-2">
 									<input type="submit" value="Pubish" name="publish"  class="btn btn-primary float-right ml-2">
@@ -160,7 +160,7 @@ if(isset($_POST['publish'])){
 									
 									<div class="table-responsive">
 									
-										<table id="basic-datatables" class="display table table-bordered table-hover ">
+										<table id="basic-datatables" class="display table table-bordered">
 											<thead>
 												<tr>
 													<th>

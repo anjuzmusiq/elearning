@@ -11,8 +11,8 @@
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
-										<a class="dropdown-item" href="../changepassword.php">Change password</a>
-										<a type="submit" href="../logout.php" name="logout" class="dropdown-item" value="">Logout</a>
+										<a class="dropdown-item" href="..\changepassword.php">Change password</a>
+											<a type="submit" href="..\logout.php"  name="logout" class="dropdown-item" value="">Logout</a>
 									</li>
 								</div>
 							</ul>
@@ -24,7 +24,7 @@
 		</div>
 
 		<!-- Sidebar -->
-		<div style="background-color: rgb(255, 255, 255);" class="sidebar sidebar-style-2">			
+		<div style="background-color: rgb(255, 255, 255);" class="sidebar sidebar-style-2">
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
 				<div class="sidebar-content">
 					<div style="border-bottom: 0px solid black ;" class="user">
@@ -36,9 +36,10 @@
 						<div class="info">
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
-								<a class="user-level" href="..\index.php">
-                                        <span style=" margin-top:15px;" class="user-level fw-bold" onclick="hide(); return false">Administrator</span>
-                                    </a>									
+									<!-- <span class="user-level" onClick="location.href='..\index.php';" style=" margin-top:15px;"> Administrator</span> -->
+									<a class="user-level" href="..\index.php">
+										<span style=" margin-top:15px;" class="user-level fw-bold" onclick="hide(); return false">Administrator</span>
+									</a>
 								</span>
 							</a>
 							<!--<div class="clearfix"></div>
@@ -72,34 +73,32 @@
 							</span>
 							<h4 class="text-section">  </h4>
 						</li>
-						
-						
 						<li class="nav-item">
-							<a href="../student/index.php"><p>Students</p></a>
+							<a href="..\student\index.php"><p style = "font-size: 1.1rem; color: black;">Students</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="../department/index.php"><p>Department</p></a>
+							<a href="..\department\index.php"><p style = "font-size: 1.1rem; color: black;">Department</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="../semester/index.php"><p>Semester</p></a>
+							<a href="..\semester\index.php"><p style = "font-size: 1.1rem; color: black;">Semester</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="../program/index.php"><p>Program</p></a>
+							<a href="..\program\index.php"><p style = "font-size: 1.1rem; color: black;">Program</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="../subject/index.php"><p>Subject</p></a>
+							<a href="..\subject\index.php"><p style = "font-size: 1.1rem; color: black;">Subject</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="../faculty/index.php"><p>Faculty</p></a>
+							<a href="..\faculty\index.php"><p style = "font-size: 1.1rem; color: black;">Faculty</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="widgets.html"><p>Batch</p></a>
+							<a href="..\batch\index.php"><p style = "font-size: 1.1rem; color: black;">Batch</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="widgets.html"><p>Student Promotion</p></a>
+							<a href="..\studentPromotion\index.php"><p style = "font-size: 1.1rem; color: black;">Student Promotion</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="widgets.html"><p>Subject allocation</p></a>
+							<a href="..\subjectAllocation\index.php"><p style = "font-size: 1.1rem; color: black;">Subject allocation</p></a>
 						</li>
 					</ul>
 				</div>

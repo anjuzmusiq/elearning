@@ -84,8 +84,8 @@
 			
 
 				<div class="col-md-12 ">
-					<div class="card mt-4 bg-light">
-						<div class="card-header">
+					<div class="card mt-4 bg-white">
+						<div class="card-header bg-white">
 							<div class="card-title">
 							<h3 style="font-size: 30px; display: inline-block;">Program</h3>
 							</div>
@@ -93,10 +93,10 @@
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
-									<div class="card-body">
+									<div class="card-body bg-white">
 										<form action="" method="POST">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Update Program</label>
+												<label for="exampleInputEmail1">Edit Program</label>
 												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Program" value="<?php echo $row['sName']; ?>">
 											</div>
 											<button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>

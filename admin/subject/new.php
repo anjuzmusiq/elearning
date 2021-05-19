@@ -86,7 +86,7 @@ if(isset($_POST['submit']))
 			
 
 				<div class="col-md-12 ">
-					<div class="card mt-4 bg-light">
+					<div class="card mt-4 bg-white">
 						<div class="card-header">
 							<div class="card-title">
 							<h3 style="font-size: 30px; display: inline-block;">Subject</h3>
@@ -95,12 +95,12 @@ if(isset($_POST['submit']))
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
-									<div class="card-header">
+									<div class="card-header bg-white">
 										<div class="card-title">
 											Add Subject
 										</div>
 									</div>
-									<div class="card-body">
+									<div class="card-body bg-white">
 										<form method="POST" action="">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Subject</label>
