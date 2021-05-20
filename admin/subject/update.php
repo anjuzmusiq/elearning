@@ -23,7 +23,7 @@
 		$retval=$subobj->updateSub($editid,$editname,$programid);
 		if($retval==1)
 		{			
-			$_SESSION['successFlag']=1;
+			$_SESSION['updateFlag']=1;
 			header("Location: index.php");
 		}
 		}

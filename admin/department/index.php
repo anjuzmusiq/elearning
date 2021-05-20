@@ -314,7 +314,12 @@ while(($row=mysqli_fetch_array($s1))==TRUE)
                 unset($_SESSION['successFlag']);
             }
         }
-
+		if(isset($_SESSION['updateFlag'])){
+			if (($_SESSION['updateFlag'])==1){
+				custom_alert("Success..!","Details updated successfully","success");
+				unset($_SESSION['updateFlag']);
+			}
+		}
         if(isset($_SESSION['deleteFlag'])){
             if(($_SESSION['deleteFlag'])==1){
                 custom_alert("Success..!","Department  deleted successfully","success");

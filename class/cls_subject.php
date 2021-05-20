@@ -41,15 +41,12 @@ Class Subject
         include ("connect.php");
         if($this->duplicateSub($editname,$programid)==0)
         {
-            echo "entered no duplicate !";
             $update="UPDATE tbl_subject set sName= '$editname',Prog_ID='$programid' where ID = '$editid'";
             $Result=mysqli_query($con,$update);
             if($Result==TRUE) {
-                echo "updated";
                 return 1;
             }
             else {
-                echo "not updated";
                 return 0;
             }
         }
