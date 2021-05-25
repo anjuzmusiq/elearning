@@ -4,7 +4,7 @@ Class Subject
     function addSub($code,$subject,$programid)
     {
         include ("connect.php");
-        if($this->duplicateSub($subject,$programid)==0)
+        if($this->duplicateSub($subject,$programid,$code)==0)
         {
             $sql1="INSERT INTO tbl_subject(sCode,Prog_ID,sName,iStatus)values('$code',$programid,'$subject',1)";
             $result1=mysqli_query($con,$sql1);
