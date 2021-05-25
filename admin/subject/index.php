@@ -156,6 +156,7 @@ if(isset($_POST['unpublish'])){
 															</label>
 														</div>
 													</th>
+													<th>Code</th>
 													<th>Subject</th>
 													<th>Program</th>
 													<th class="text-center">Status</th>
@@ -180,8 +181,9 @@ while(($row=mysqli_fetch_array($s1))==TRUE)
 														</div> 
 													</th>
 													<td><?php echo $row[2];?></td>
-													<td><?php echo $row[5];?></td>
-													<td class="text-center"><?php if($row[3]==1) echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>"; else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";?></td>
+													<td><?php echo $row[3];?></td>
+													<td><?php echo $row[6];?></td>
+													<td class="text-center"><?php if($row[4]==1) echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>"; else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";?></td>
 													<td class="text-center"><a href="update.php?updateid=<?php echo $row[0];?>">
                                                     <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">
 																<i class="fa fa-edit"></i>

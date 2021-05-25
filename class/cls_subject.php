@@ -1,12 +1,12 @@
 <?php
 Class Subject
 {
-    function addSub($subject,$programid)
+    function addSub($code,$subject,$programid)
     {
         include ("connect.php");
         if($this->duplicateSub($subject,$programid)==0)
         {
-            $sql1="INSERT INTO tbl_subject(Prog_ID,sName,iStatus)values($programid,'$subject',1)";
+            $sql1="INSERT INTO tbl_subject(sCode,Prog_ID,sName,iStatus)values('$code',$programid,'$subject',1)";
             $result1=mysqli_query($con,$sql1);
             if($result1==TRUE)
             {
@@ -22,10 +22,10 @@ Class Subject
             return 2;
         }
     } 
-    function duplicateSub($subject,$programid)
+    function duplicateSub($subject,$programid,$code)
     {
         include ("connect.php");
-        $sql="SELECT sName,Prog_ID from tbl_subject where sName='$subject' and Prog_ID='$programid'";
+        $sql="SELECT sName,Prog_ID from tbl_subject where sName='$subject' and Prog_ID='$programid' and sCode='$code'";
         $result=mysqli_query($con,$sql);
         $row=mysqli_fetch_array($result);
         if(($subject!=$row['sName'])&&($programid!=$row['Prog_ID']))
@@ -37,11 +37,11 @@ Class Subject
                return 1;
             }
     } 
-    function updateSub($editid,$editname,$programid){
+    function updateSub($editid,$editname,$code,$programid){
         include ("connect.php");
-        if($this->duplicateSub($editname,$programid)==0)
+        if($this->duplicateSub($editname,$programid,$code)==0)
         {
-            $update="UPDATE tbl_subject set sName= '$editname',Prog_ID='$programid' where ID = '$editid'";
+            $update="UPDATE tbl_subject set sName= '$editname',Prog_ID='$programid',sCode='$code' where ID = '$editid'";
             $Result=mysqli_query($con,$update);
             if($Result==TRUE) {
                 return 1;

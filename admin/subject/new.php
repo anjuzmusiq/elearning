@@ -10,10 +10,11 @@ if(isset($_POST['submit']))
 		$errmsg="Please enter a value";
 	}
 	else{
-	$subject=$_POST['subject'];
-	$programid=$_POST['programid'];	
+		$code=$_POST['code'];
+		$subject=$_POST['subject'];
+		$programid=$_POST['programid'];	
 	$subobj= new Subject();
-	$retval=$subobj->addSub($subject,$programid);
+	$retval=$subobj->addSub($code,$subject,$programid);
 	if($retval==1)
 		{
 			$_SESSION['successFlag']=1;
@@ -106,6 +107,10 @@ if(isset($_POST['submit']))
 												<label for="exampleInputEmail1">Subject</label>
 												<input type="text" class="form-control" id="exampleInputEmail1" name="subject" aria-describedby="emailHelp" placeholder="Enter Subject"required>
 												<p style = "color: red;"><?php echo $errmsg; ?></p>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Code</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="code" aria-describedby="emailHelp" placeholder="Enter Code"required>
 											</div>
 											<div class="form-group">
 											<label for="exampleInputEmail1">Program</label>

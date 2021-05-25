@@ -1,3 +1,33 @@
+<?php
+include ("class\connect.php");
+include ("class\cls_userlogin.php");
+
+$retval = 0;
+$remember = NULL;
+$_SESSION['cookieUnset'] = 2;
+if (isset($_POST['email'])){
+	$user=$_POST['user'];
+	$Email = $_POST['email'];
+	$Pass = $_POST['pass'];
+	if(isset($_POST['remember'])){
+		$remember = 1;
+	}
+	$loginobj= new User();
+	$retval=$loginobj->userlogin($Email,$Pass,$user,$remember);
+	if($retval == 1){
+		header("Location: faculty/index.php");}
+	else if($retval == 2){
+		header("Location: student/index.php");
+	}
+}
+if(isset($_COOKIE['cookieEmail'])) {
+		$_SESSION['cookieUnset'] = NULL;
+		$cookieEmail = $_COOKIE['cookieEmail'];
+		$cookiePass = $_COOKIE['cookiePass'];
+		$cookieuser = $_COOKIE['cookieuser'];
+		$cookieRem = $_COOKIE['remember'];
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,28 +62,51 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" action="" method="POST">
 					<span class="login100-form-title p-b-43">
 						<img src=".\img\SCMS-logo2.jpg" alt="">
 					</span>
-					
-					
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100" type="text" name="email">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
+					<div class="form-check ">
+					<?php if(isset($cookieuser)){ ?>
+						<input class="form-radio-input ml-4" type="radio" name="user" value="student"  <?php if($cookieuser=="student") echo"checked";?>>
+						<span class="">Student</span>
+						<input class="form-radio-input ml-4" type="radio" name="user" value="faculty"  <?php if($cookieuser=="faculty") echo"checked";?>>
+						<span class="">Faculty</span>
+						<?php } ?>
 					</div>
-					
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<?php if(isset($cookieEmail)){ ?>
+							<input class="input100 has-val" type="text" name="email" value= "<?php echo $cookieEmail ?>">
+						<?php } if(isset($_SESSION['cookieUnset'])) { ?>
+							<input class="input100" type="text" name="email" ?>
+						<?php }?>
+						<span class="focus-input100"></span>
+						<span class="label-input100" name = "email" >Email</span>
+					</div>
+						<?php if ($retval == -2) { ?>
+							<span class ="text-danger">E-mail is incorrect or does not exist</span>
+						<?php } ?>
 					
 					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" name="pass">
+						<?php if(isset($cookiePass)){ ?>
+							<input class="input100 has-val" type="password" name="pass" value= "<?php echo $cookiePass ?>">
+						<?php } if(isset($_SESSION['cookieUnset'])) { ?>
+							<input class="input100" type="password" name="pass">
+						<?php }?>
 						<span class="focus-input100"></span>
-						<span class="label-input100">Password</span>
+						<span class="label-input100" name= "pass" >Password</span>
 					</div>
+						<?php if ($retval == -1) { ?>
+							<span class ="text-danger">Password is incorrect</span>
+						<?php } ?>
 
-					<div class="flex-sb-m w-full p-t-3 p-b-32">
+					<div class="flex-sb-m w-full p-t-3 p-b-32 mt-3">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+						<?php if(isset($cookieRem)) { ?>
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember" value="" checked>
+						<?php } else { ?>
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember" value="">
+							<?php }?>
 							<label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
@@ -68,7 +121,7 @@
 			
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+					<button type="submit" name="submit" class="login100-form-btn">
 							Login
 						</button>
 					</div>

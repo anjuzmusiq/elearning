@@ -18,9 +18,10 @@
         $editname = $_POST['subject'];
 		$editid= $updateid;
 		$programid= $_POST['programid'];
+		$code=$_POST['code'];
 		$editid= $updateid;
 		$subobj= new Subject();
-		$retval=$subobj->updateSub($editid,$editname,$programid);
+		$retval=$subobj->updateSub($editid,$editname,$code,$programid);
 		if($retval==1)
 		{			
 			$_SESSION['updateFlag']=1;
@@ -110,8 +111,12 @@
 									<div class="card-body bg-white">
 										<form method="POST" action="">
 											<div class="form-group">
+												<label for="exampleInputEmail1">Code</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="code" aria-describedby="emailHelp" placeholder="Enter Code" value="<?php echo $row3[2]; ?>"required>
+											</div>
+											<div class="form-group">
 												<label for="exampleInputEmail1">Subject</label>
-												<input type="text" class="form-control" id="exampleInputEmail1" name="subject" aria-describedby="emailHelp" placeholder="Enter Subject" value="<?php echo $row3[2]; ?>"required>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="subject" aria-describedby="emailHelp" placeholder="Enter Subject" value="<?php echo $row3[3]; ?>"required>
 											</div>
 											<div class="form-group">
 											<label for="exampleInputEmail1">Program</label>
