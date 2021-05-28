@@ -1,14 +1,14 @@
 <?php
 Class Program
 {
-    function duplicateProg($prog) {
+    function duplicateProg($prog,$depID) {
         include ("connect.php");
 
-        $sql="SELECT sName from tbl_program where sName='$prog'";
+        $sql="SELECT sName, Dep_ID from tbl_program where sName='$prog' and Dep_ID = '$depID'";
         $result=mysqli_query($con,$sql);
         $row=mysqli_fetch_array($result);
         $_SESSION['duplicateFlag']=1;
-        if($prog!=$row['sName']) {
+        if($prog != $row['sName'] && $depID != $row['Dep_ID']) {
             return 0;
         }
         else {
@@ -16,11 +16,11 @@ Class Program
             }
     } 
 
-    function addProg($prog) {
+    function addProg($prog, $depID) {
         include ("connect.php");
 
-        if($this->duplicateProg($prog)==0){
-            $sql1="INSERT INTO tbl_program(sName,iStatus)values('$prog',1)";
+        if($this->duplicateProg($prog,$depID)==0){
+            $sql1="INSERT INTO tbl_program(sName, Dep_ID, iStatus)values('$prog', '$depID', 1)";
             $result1=mysqli_query($con,$sql1);
             if($result1==TRUE) {
                 $_SESSION['successFlag']=1;
@@ -49,11 +49,11 @@ Class Program
             }
         }
     
-    function updateProg($editid,$prog){
+    function updateProg($editid,$prog,$depID){
         include ("connect.php");
 
-        if($this->duplicateProg($prog)==0){
-            $update="UPDATE tbl_program set sName= '$prog' where ID = '$editid'";
+        if($this->duplicateProg($prog,$depID)==0){
+            $update="UPDATE tbl_program set sName= '$prog', Dep_ID = '$depID' where ID = '$editid'";
             $uResult=mysqli_query($con,$update);
             $row2=mysqli_fetch_array($uResult);
                 $_SESSION['updateFlag']=1;

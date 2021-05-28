@@ -72,6 +72,11 @@ if(isset($_COOKIE['cookieEmail'])) {
 						<span class="">Student</span>
 						<input class="form-radio-input ml-4" type="radio" name="user" value="faculty"  <?php if($cookieuser=="faculty") echo"checked";?>>
 						<span class="">Faculty</span>
+						<?php } else { ?>
+							<input class="form-radio-input ml-4" type="radio" name="user" value="student">
+						<span class="">Student</span>
+						<input class="form-radio-input ml-4" type="radio" name="user" value="faculty">
+						<span class="">Faculty</span>
 						<?php } ?>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">

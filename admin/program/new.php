@@ -8,8 +8,9 @@
 	if(isset($_POST['pname']))
 	{
 		$prog=$_POST['pname'];
+		$depID=$_POST['depID'];
 		$progobj= new Program();
-		$retval=$progobj->addProg($prog);
+		$retval=$progobj->addProg($prog, $depID);
 		if($retval == 1) {
 			header("Location: index.php");
 		}
@@ -29,7 +30,7 @@
 	<script>
 		WebFont.load({
 			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../css/fonts.min.css']},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../../css/fonts.min.css']},
 			active: function() {
 				sessionStorage.fonts = true;
 			}
@@ -41,7 +42,7 @@
 	<link rel="stylesheet" href="../../css/atlantis.min.css">
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link rel="stylesheet" href="../../css/demo.css">
+	<link rel="stylesheet" href="../css/demo.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -57,15 +58,13 @@
 						<i  class="icon-menu"></i>
 					</span>
 				</button>
-				<button class="topbar-toggler  more"><i class="icon-options-vertical"></i></button>
+				<button class="topbar-toggler  more"><i  class="icon-options-vertical"></i></button>
 				<div class="nav-toggle">
-					<button class="btn btn-toggle btn-primary toggle-sidebar">
-						<i class="fas fa-bars"></i>
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
 					</button>
 				</div>
 			</div>
-			<!-- End Logo Header -->
-
 			<!-- Navbar and sidebar -->
 			<?php include ("../../include/menu.php"); ?>
 			<!-- End Navbar and sidebar -->
@@ -81,24 +80,37 @@
 				<div class="col-md-12 ">
 					<div class="card mt-4 bg-white">
 						<div class="card-header">
-							<div class="card-title">
-								<h3 style="font-size: 30px; display: inline-block;"> Program </h3>
-							</div>
+						<div class="card-title"> 
+							<h3 style="font-size: 30px; display: inline-block;"> Add Program </h3>
+						</div>
 						</div>
 						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
-								<div class="card mt-4  bg-light">
-									<div class="card-header bg-white">
+								<div class="card mt-4  bg-white	">
+									<div class="card-header">
 										<div class="card-title">
-											Add Program
+											Program
 										</div>
 									</div>
-									<div class="card-body bg-white">
+									<div class="card-body">
 										<form action="" method="POST">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Enter Program</label>
-												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Program">
-												 <p style = "color: red;"><?php echo $errMsg; ?></p>   
+												<input type="text" name="pname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Program">
+												<p style = "color: red;"><?php echo $errMsg; ?></p>   
+											</div>
+											<div class="form-group">
+												<label for="exampleFormControlSelect1">Department</label>
+													<select name="depID" class="form-control" id="exampleFormControlSelect1">
+														<?php 
+															$sql =  "SELECT* FROM tbl_department where iStatus = 1";
+															$result = mysqli_query($con,$sql);
+																while($row = mysqli_fetch_assoc($result)) { 
+														?>
+														<option value = "<?php echo $row['ID'] ?>"><?php echo $row['sName'] ?> </option>
+
+														<?php } ?>
+													</select>
 											</div>
 											<button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>
 											<a href="index.php"><input type="button" value="Cancel" class="btn btn-danger float-right"></a>
@@ -123,7 +135,7 @@
 			<!--<footer  class=" bg-dark2 text-center text-lg-start">
 				<!-- Copyright -->
 				<!--<div class="text-center p-3" >
-				  © 2020 Copyright:
+				  Â© 2020 Copyright:
 				  <a class="text-light" href="">Web development team SSTM</a>
 				</div>-->
 				<!-- Copyright -->

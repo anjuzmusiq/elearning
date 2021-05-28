@@ -96,7 +96,7 @@
 </head>
 <body>
 	<div class="wrapper">
-	<div class="main-header">
+		<div class="main-header">
 			<!-- Logo Header -->
 			<div class="logo-header bg-light" >
 				
@@ -115,7 +115,7 @@
 					</button>
 				</div>
 			</div>
-			<!-- Navbar and sidebar -->
+						<!-- End Navbar and sidebar -->
 			<?php include ("../../include/menu.php"); ?>
 			<!-- End Navbar and sidebar -->
 
@@ -151,7 +151,8 @@
 															</label>
 														</div>
 													</th>
-													<th>Program</th>
+													<th class = "text-center">Program</th>
+													<th class = "text-center">Department</th>
 													<th class = "text-center">Status</th>
 													<th class = "text-center">Edit</th>
 													<th class = "text-center">Delete</th>
@@ -162,7 +163,10 @@
 												$pageNo=($page-1)*$resultPerPage;
 												$sql="SELECT* FROM tbl_program limit $pageNo,$resultPerPage";	
 												$result = mysqli_query($con,$sql);
-												while($row = mysqli_fetch_assoc($result)) { ?>
+													$sql2 =  "SELECT tbl_program.Dep_ID,tbl_department.sName FROM tbl_program LEFT JOIN tbl_department ON tbl_program.Dep_ID = tbl_department.ID";
+													$result2 = mysqli_query($con,$sql2);
+												while($row = mysqli_fetch_assoc($result)) {
+													  $row2 = mysqli_fetch_assoc($result2);	 ?>
 												<tr>
 													<th style="width:1%" scope="row">
 														<div class="form-check">
@@ -172,7 +176,8 @@
 															</label>
 														</div>
 													</th>
-													<td><?php echo $row['sName']; ?></td>
+													<td class = "text-center"><?php echo $row['sName']; ?></td>
+													<td class = "text-center"><?php echo $row2['sName']; ?></td>
 													<td class = "text-center"><?php 
 														if($row['iStatus'] == 1) {
 															echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>";
@@ -180,7 +185,7 @@
 														else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";
 														?>
 													</td>
-													<td class = "text-center"><a href="edit.php?updateid=<?php echo $row['ID'];?>"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">
+													<td class = "text-center"><a href="update.php?updateid=<?php echo $row['ID'];?>"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">
 														<i class="fa fa-edit"></i> </button></a></i>
 													</td>
 													<td class = "text-center">
@@ -254,7 +259,7 @@
 			<!--<footer  class=" bg-dark2 text-center text-lg-start">
 				<!-- Copyright -->
 				<!--<div class="text-center p-3" >
-				  � 2020 Copyright:
+				  ï¿½ 2020 Copyright:
 				  <a class="text-light" href="">Web development team SSTM</a>
 				</div>-->
 				<!-- Copyright -->
@@ -291,23 +296,58 @@
                 }
             }
 
+			// function searchFunction() {
+			// var input, filter, table, tr, td, i, txtValue;
+			// input = document.getElementById("searchId");
+			// filter = input.value.toUpperCase();
+			// table = document.getElementById("tableId");
+			// tr = table.getElementsByTagName("tr");
+			// for (i = 0; i < tr.length; i++) {
+			// 	td = tr[i].getElementsByTagName("td")[0];
+			// 	if (td) {
+			// 	txtValue = td.textContent || td.innerText;
+			// 	if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			// 		tr[i].style.display = "";
+			// 	} else {
+			// 		tr[i].style.display = "none";
+			// 			}
+			// 		}       
+			// 	}
+			// }
+
 			function searchFunction() {
-			var input, filter, table, tr, td, i, txtValue;
-			input = document.getElementById("searchId");
-			filter = input.value.toUpperCase();
-			table = document.getElementById("tableId");
-			tr = table.getElementsByTagName("tr");
-			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[0];
-				if (td) {
-				txtValue = td.textContent || td.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-						}
-					}       
+
+			// Declare variables 
+			var input = document.getElementById("searchId");
+			var filter = input.value.toUpperCase();
+			var table = document.getElementById("tableId");
+			var trs = table.tBodies[0].getElementsByTagName("tr");
+
+			// Loop through first tbody's rows
+			for (var i = 0; i < trs.length; i++) {
+
+			// define the row's cells
+			var tds = trs[i].getElementsByTagName("td");
+
+			// hide the row
+			trs[i].style.display = "none";
+
+			// loop through row cells
+			for (var i2 = 0; i2 < tds.length; i2++) {
+
+				// if there's a match
+				if (tds[i2].innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+				// show the row
+				trs[i].style.display = "";
+
+				// skip to the next row
+				continue;
+
 				}
+			}
+			}
+
 			}
 			
         // $(document).ready(function() {
