@@ -62,6 +62,9 @@
 </head>
 <body>
 
+	<input hidden  type="button" id="prgrm" value=<?php echo $row3[14] ; ?>>
+	<input hidden type="button" id="bth" value=<?php echo $row3[19] ; ?>>
+
 	<div class="wrapper">
 		<div class="main-header">
 			<!-- Logo Header -->
@@ -119,7 +122,7 @@
 											</div>
 											<div class="form-group">
 											<label for="exampleInputEmail1">Department</label>
-												<select class="form-control" name="deptid" id="formGroupDefaultSelect" aria-describedby="emailHelp" required>
+												<select class="form-control" name="deptid" id="dept" aria-describedby="emailHelp" required>
 <?php
 $sql2="SELECT * from tbl_department where iStatus=1";
 $s2=mysqli_query($con,$sql2);
@@ -132,32 +135,17 @@ while(($row4=mysqli_fetch_array($s2))==TRUE)
 												</select>
 											</div>
 											<div class="form-group">
-											<label for="exampleInputEmail1">Program</label>
-												<select class="form-control" name="programid" id="formGroupDefaultSelect" aria-describedby="emailHelp"required>
-<?php
-$sql4="SELECT * from tbl_program where iStatus=1";
-$s4=mysqli_query($con,$sql4);
-while(($row4=mysqli_fetch_array($s4))==TRUE)
-{?>	
-													<option value="<?php echo $row4['ID'];?>"<?php if($row4['sName']==$row3[14]) echo "selected" ?>><?php echo $row4['sName'];?></option>
-<?php
-}
-?>
-												</select>
+											<!-- program -->
+											<label for="defaultSelect">Select Program</label>
+											<select name="programid" class="form-control form-control prog" id="prog">
+											</select>
+											<!--End program -->
 											</div>
 											<div class="form-group">
-											<label for="exampleInputEmail1">Batch</label>
-												<select class="form-control" name="batchid" id="formGroupDefaultSelect" aria-describedby="emailHelp" required>
-<?php
-$sql2="SELECT * from tbl_batch where iStatus=1";
-$s2=mysqli_query($con,$sql2);
-while(($row4=mysqli_fetch_array($s2))==TRUE)
-{?>	
-													<option value="<?php echo $row4['ID'];?>"<?php if($row4['sName']==$row3[19]) echo "selected" ?>><?php echo $row4['sName'];?></option>
-<?php
-}
-?>
-												</select>
+											<!-- batch -->
+												<div class="batch-container">
+												</div>
+											<!-- End Batch -->
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Email</label>
@@ -286,5 +274,132 @@ $.notify({
 <?php
 }
 ?>
+
+<script>
+$(document).ready(function(){
+		 $("#prog").change(function(){
+			var getProgID = $(this).val();
+			
+			
+			if(getProgID !='')
+			{
+				$(".batch-container").html("");
+				
+				$.ajax({
+					type:'post',
+					data:{prog:getProgID},
+					url: 'ajaxget.php',
+					success:function(returnData){
+						$(".batch-container").html(returnData);
+					}
+				});	
+			}
+			
+		 })
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		//  $("#dept").change(function(){
+			var getDepartmentID = $("#dept").val();
+			var getProgramId= $("#prgrm").val();
+			var getBatchId= $("#bth").val();
+			
+			if(getDepartmentID !='')
+			{
+				// $(".prog").html("");
+				
+				$.ajax({
+					type:'post',
+					data:{'department_id':getDepartmentID,'prgm_id':getProgramId,'bch_id':getBatchId},
+					url: 'ajaxget.php',
+					success:function(returnData){
+						$("#prog").html(returnData);
+						
+	//$(document).ready(function(){
+		//  $("#prog").change(function(){
+			var getProgID = $("#prog").val();
+			var getBatchId= $("#bth").val();
+			
+			if(getProgID !='')
+			{
+				$(".batch-container").html("");
+				
+				$.ajax({
+					type:'post',
+					data:{'prog':getProgID,'bch_id':getBatchId},
+					url: 'ajaxget.php',
+					success:function(returnData){
+						$(".batch-container").html(returnData);
+					}
+				});	
+			}
+			
+		//  })
+	//});
+					}
+				});	
+			}
+			
+		//  })
+	});
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		 $("#dept").change(function(){
+			var getDepartmentID = $("#dept").val();
+			
+			
+			if(getDepartmentID !='')
+			{
+				$(".program-container").html("");
+				
+				$.ajax({
+					type:'post',
+					data:{department_id:getDepartmentID},
+					url: 'ajaxget.php',
+					success:function(returnData){
+						$("#prog").html(returnData);
+						$(".batch-container").html("");
+	//$(document).ready(function(){
+		 $("#prog").change(function(){
+			var getProgID = $("#prog").val();
+			
+			
+			if(getProgID !='')
+			{
+				$(".batch-container").html("");
+				
+				$.ajax({
+					type:'post',
+					data:{prog:getProgID},
+					url: 'ajaxget.php',
+					success:function(returnData){
+						$(".batch-container").html(returnData);
+					}
+				});	
+			}
+			
+		 })
+	//});
+					}
+				});	
+			}
+			
+		 })
+	});
+
+	
+	
+
+
+</script>
+
+
+
+
 </body>
 </html>

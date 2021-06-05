@@ -58,7 +58,7 @@ if(isset($_POST['submit']))
 </head>
 <body>
 
-	<div class="wrapper">
+<div class="wrapper">
 		<div class="main-header">
 			<!-- Logo Header -->
 			<div class="logo-header bg-light" >
@@ -71,15 +71,14 @@ if(isset($_POST['submit']))
 						<i  class="icon-menu"></i>
 					</span>
 				</button>
-				<button class="topbar-toggler  more"><i class="icon-options-vertical"></i></button>
+				<button class="topbar-toggler  more"><i  class="icon-options-vertical"></i></button>
 				<div class="nav-toggle">
-					<button class="btn btn-toggle btn-primary toggle-sidebar">
-						<i class="fas fa-bars"></i>
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
 					</button>
 				</div>
 			</div>
 			<!-- End Logo Header -->
-
 			<!-- Navbar and sidebar -->
 			<?php include ("../../include/menu.php"); ?>
 			<!-- End Navbar and sidebar -->
@@ -130,8 +129,9 @@ while(($row2=mysqli_fetch_array($s2))==TRUE)
 											</div>
 											<div class="form-group">
 												<!-- program select -->
-												<div class="program-container">
-												</div>
+											<label for="defaultSelect">Select Program</label>
+											<select name="program_id" class="form-control form-control prog" id="prog">
+											</select>
 												<!-- end of program select -->
 											</div>
 											<div class="form-group">
@@ -279,7 +279,8 @@ $.notify({
 					data:{department_id:getDepartmentID},
 					url: 'ajaxget.php',
 					success:function(returnData){
-						$(".program-container").html(returnData);
+						$("#prog").html(returnData);
+						$(".batch-container").html("");
 	$(document).ready(function(){
 		 $("#prog").change(function(){
 			var getProgID = $(this).val();
@@ -306,6 +307,11 @@ $.notify({
 			
 		 })
 	});
+
+	
+
+
+
 </script>
 
 </body>
