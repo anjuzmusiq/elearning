@@ -1,23 +1,20 @@
 <?php
 	include ("..\..\class\connect.php");
-	include ("..\..\class\cls_faculty.php");
+	include ("..\..\class\cls_sub_alloc.php");
 	include ("..\..\class\alert.php");
 	
 	$retval=0;
 	$errMsg="";
-	if(isset($_POST['fname']))
+	if(isset($_POST['dep']))
 	{
-		$fac = $_POST['fname'];
-		$pass = md5($_POST['pass']);
-        $desi = $_POST['desi'];
-        $quali = $_POST['quali'];
-        $email = $_POST['email'];
-        $gender = $_POST['gender'];
-        $phone = $_POST['phone'];
-        $depID = $_POST['depID'];
-        $multipleDep = $_POST['multipleDep'];
-		$facobj= new Faculty();
-		$retval=$facobj->addFac($fac, $pass, $desi, $quali, $email, $gender, $phone, $depID, $multipleDep);
+		$department = $_POST['dep'];
+		$faculty = $_POST['faculty'];
+        $program = $_POST['program'];
+        $batch = $_POST['batch'];
+        $subject = $_POST['subject'];
+        $semester = $_POST['semester'];
+        $SAobj= new SubjectAllocation();
+		$retval=$SAobj->addSubAlloc($department, $faculty, $program, $batch, $subject, $semester);
 		if($retval == 1) {
 			header("Location: index.php");
 		}
@@ -26,6 +23,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+
+
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>Elearning</title>
@@ -50,8 +51,16 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="../css/demo.css">
+	
+
+
 </head>
 <body>
+
+
+
+		
+
 	<div class="wrapper">
 	<div class="main-header">
 			<!-- Logo Header -->
@@ -72,7 +81,6 @@
 					</button>
 				</div>
 			</div>
-
 			<!-- Navbar and sidebar -->
 			<?php include ("../../include/menu.php"); ?>
 			<!-- End Navbar and sidebar -->
@@ -82,7 +90,7 @@
 					<div class="card mt-4 bg-light">
 						<div class="card-header bg-white">
 							<div class="card-title"> 
-								<h3 style="font-size: 30px; display: inline-block;"> Add Faculty </h3>
+								<h3 style="font-size: 30px; display: inline-block;"> Allocate Subject </h3>
 							</div>
 						</div>
 						<div class="card-body bg-white">
@@ -90,63 +98,39 @@
 								<div class="card mt-4  bg-light">
 									<div class="card-header bg-white">
 										<div  style="font-size: 27px;" class="card-title">
-											Faculty
+											Add
 										</div>
 									</div>
 									<div class="card-body bg-white">
 										<form action="" method="POST">
 											<div class="form-group">
-												<label for="exampleInputEmail1">Faculty</label>
-												<input type="text" name="fname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
-											</div>
-											<div class="form-group">
-												<label for="exampleInputEmail1">Default Password</label>
-												<input type="password" name="pass" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Password">									
-											</div>
-											<div class="form-group">
-												<label for="exampleInputEmail1">Designation</label>
-												<input type="text" name="desi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Designation" >
-											</div>
-											<div class="form-group">
-												<label for="exampleInputEmail1">Qualification</label>
-												<input type="text" name="quali" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Qualification" >
-											</div>
-											<div class="form-group">
-												<label for="exampleInputEmail1">E-mail</label>
-												<input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
-											</div>
-											<div class="form-group">
-												<label for="exampleFormControlSelect1">Gender</label>
-													<select name="gender" class="form-control" id="exampleFormControlSelect1">
-														<option value = 0>Male</option>
-														<option value = 1>Female</option>
-														<option value = 2>Others</option>
-													</select>
-											</div>
-											<div class="form-group">
-												<label for="exampleInputEmail1">Phone</label>
-												<input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone" >
-											</div>
-											<div class="form-group">
 												<label for="exampleFormControlSelect1">Department</label>
-													<select name="depID" class="form-control" id="exampleFormControlSelect1">
+													<select name="dep" id="progFetch" class="form-control" required>
+													<option hidden value = "" selected >--Select--</option>
 														<?php 
 															$sql =  "SELECT* FROM tbl_department where iStatus = 1";
 															$result = mysqli_query($con,$sql);
 																while($row = mysqli_fetch_assoc($result)) { 
 														?>
 														<option value = "<?php echo $row['ID'] ?>"><?php echo $row['sName'] ?> </option>
-
 														<?php } ?>
 													</select>
-											</div>
-											<div class="form-group">
-												<div class="form-check">
-													<label class="form-check-label">
-														<input name="multipleDep" class="form-check-input" type="checkbox" value="1">
-														<span class="form-check-sign">More than one department</span>
-													</label>
-												</div>
+													<!-- program select -->
+													<div class="program-container">
+														
+													</div>
+													<!-- batch select -->
+													<div class="batch-container">
+														
+													</div>
+													<!-- sem select -->
+													<div class="sem-container">
+														
+													</div>
+													<!-- faculty select -->
+													<div class="fac-container">
+														
+													</div>
 											</div>
 											<button name="submit" type="submit" class="btn btn-primary ml-3 float-right">Submit</button>
 											<a href="index.php"><input type="button" value="Cancel" class="btn btn-danger float-right"></a>
@@ -205,11 +189,82 @@
 		if(isset($_SESSION['duplicateFlag']))
 		{
 			if(($_SESSION['duplicateFlag'])==1){
-				custom_alert("Duplicate entry","The program already exists","warning");
+				custom_alert("Warning..!","This subject is already allocated","warning");
 			}
 			unset($_SESSION['duplicateFlag']);
 		}
 	?>
 
+
+<script type="text/javascript">
+
+	// For checking programs's under the specified Department
+
+	$(document).ready(function(){
+		 $("#progFetch").change(function(){
+			var getDepartmentID = $(this).val();
+			
+			if(getDepartmentID !='')
+			{
+				$(".program-container").html("");
+				$.ajax({
+					type:'post',
+					data:{department_id:getDepartmentID},
+					url: 'ajaxget.php',
+					success:function(returnData){
+						$(".program-container").html(returnData);
+
+						// For checking batch's under the specified program
+
+						$(document).ready(function(){
+								$("#batchFetch").change(function(){
+									var getProgramID = $(this).val();
+									
+									if(getProgramID !='')
+									{
+										$(".batch-container").html("");
+										$.ajax({
+											type:'post',
+											data:{program_id:getProgramID},
+											url: 'ajaxget.php',
+											success:function(returnData){
+												$(".batch-container").html(returnData);
+
+												// For selecting semesters under the specified batch
+
+												$(document).ready(function(){
+														$("#semFetch").change(function(){
+															var getSemID = $(this).val();
+															
+															if(getSemID !='')
+															{
+																$(".sem-container").html("");
+																$.ajax({
+																	type:'post',
+																	data:{sem_id:getSemID},
+																	url: 'ajaxget.php',
+																	success:function(returnData){
+																		$(".sem-container").html(returnData);																		
+																	}
+																});	
+															}
+															
+														})
+													});
+												
+											}
+										});	
+									}
+									
+								})
+							});
+						}
+					});	
+				}
+				
+			})
+		});
+	
+</script>
 </body>
 </html>

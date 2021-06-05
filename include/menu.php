@@ -95,9 +95,6 @@
 							<a href="..\batch\index.php"><p style = "font-size: 1.1rem; color: black;">Batch</p></a>
 						</li>
 						<li class="nav-item">
-							<a href="..\studentPromotion\index.php"><p style = "font-size: 1.1rem; color: black;">Student Promotion</p></a>
-						</li>
-						<li class="nav-item">
 							<a href="..\subjectAllocation\index.php"><p style = "font-size: 1.1rem; color: black;">Subject allocation</p></a>
 						</li>
 					</ul>
