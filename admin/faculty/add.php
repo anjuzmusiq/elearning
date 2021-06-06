@@ -15,7 +15,9 @@
         $gender = $_POST['gender'];
         $phone = $_POST['phone'];
         $depID = $_POST['depID'];
-        $multipleDep = $_POST['multipleDep'];
+		if(isset($_POST['multipleDep']))
+        	$multipleDep = $_POST['multipleDep'];
+		else $multipleDep = 0;
 		$facobj= new Faculty();
 		$retval=$facobj->addFac($fac, $pass, $desi, $quali, $email, $gender, $phone, $depID, $multipleDep);
 		if($retval == 1) {
@@ -97,27 +99,27 @@
 										<form action="" method="POST">
 											<div class="form-group">
 												<label for="exampleInputEmail1">Faculty</label>
-												<input type="text" name="fname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+												<input type="text" name="fname" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Default Password</label>
-												<input type="password" name="pass" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Password">									
+												<input type="password" name="pass" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Password" required>									
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Designation</label>
-												<input type="text" name="desi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Designation" >
+												<input type="text" name="desi" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Designation" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Qualification</label>
-												<input type="text" name="quali" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Qualification" >
+												<input type="text" name="quali" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Qualification" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">E-mail</label>
-												<input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail">
+												<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="E-mail" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleFormControlSelect1">Gender</label>
-													<select name="gender" class="form-control" id="exampleFormControlSelect1">
+													<select name="gender" class="form-control" id="exampleFormControlSelect1" required>
 														<option value = 0>Male</option>
 														<option value = 1>Female</option>
 														<option value = 2>Others</option>
@@ -125,7 +127,7 @@
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Phone</label>
-												<input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone" >
+												<input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleFormControlSelect1">Department</label>
