@@ -9,9 +9,37 @@
 	else {
 		header("location: ../index.php");
 	}
-if(isset($_SESSION['id'])){
-	unset($_SESSION['id']);
-	}
+//geting specific details
+$id=$_SESSION['id'];
+$email=$_SESSION['username'];
+$idsql="SELECT Batch_ID,Prog_ID,Dep_ID from tbl_subject_Allocation where ID=$id";
+$idresult=mysqli_query($con,$idsql);
+$idrow=mysqli_fetch_array($idresult);
+$batch=$idrow['Batch_ID'];
+$program=$idrow['Prog_ID'];
+$dept=$idrow['Dep_ID'];
+//pagination
+$resultPerPage=10;
+$qry1="SELECT * FROM tbl_student s,tbl_department d,tbl_program p,tbl_batch b where s.Dep_ID=d.ID and s.Batch_ID=b.ID and s.Prog_ID=p.ID";
+$result3=mysqli_query($con,$qry1);
+$rowcount=mysqli_num_rows($result3);
+if(!isset($_GET['page']))
+    {
+      $page=1;
+  }
+else
+  {
+      if($_GET['page']<=1)
+      {
+          $page=1;
+      }
+      elseif($rowcount<(((($_GET['page'])-1)*$resultPerPage)+1)){
+          $page=($_GET['page'])-1;
+      }
+      else{
+      $page=$_GET['page'];
+      }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -143,14 +171,19 @@ if(isset($_SESSION['id'])){
 						<li class="nav-item">
 							<a href="index.php"><p style = "font-size: 1.1rem; color: black;">Home</p></a>
 						</li>
-	
+						<li class="nav-item">
+							<a href="video.php"><p style = "font-size: 1.1rem; color: black;">Video</p></a>
+						</li>
+						<li class="nav-item">
+							<a href="student_list.php"><p style = "font-size: 1.1rem; color: black;">Student List</p></a>
+						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<!----End of sidebar---->
 		<div  class="main-panel ">
-			<div style="" class="content bg-light"style="min-height:2000px;">
+			<div style="" class="content bg-light">
 
 
 			<div class="col-md-12">
@@ -158,76 +191,81 @@ if(isset($_SESSION['id'])){
 			<div class="card-header">
                             <form action="" method="POST">
                             <div class="card-title"> 
-                                <h3 style="font-size: 30px; display: inline-block;">Subjects</h3>
-
+                                <h3 style="font-size: 30px; display: inline-block;">Students</h3>
                             </div>
-            </div>
-            <div style="margin: 0px;" class="card-sub bg-white">
-					<div class="card-body">
-					<div class="row">
-<?php 
-$email=$_SESSION['username'];
-$idsql="SELECT ID from tbl_faculty where sEmail='$email'";
-$idresult=mysqli_query($con,$idsql);
-$idrow=mysqli_fetch_assoc($idresult);
-$id=$idrow['ID'];
-$sql="SELECT * FROM tbl_subject_allocation where Faculty_ID=$id and iStatus=1";	
-$result = mysqli_query($con,$sql);
-while($row = mysqli_fetch_assoc($result)) { 
-$deptID=$row['Dep_ID'];
-$progID=$row['Prog_ID'];
-$batchID=$row['Batch_ID'];
-$semID=$row['Sem_ID'];
-$subID=$row['Subject_ID'];
-$facID=$row['Faculty_ID'];
-$deptsql="SELECT sName from tbl_department where ID='$deptID'";
-$deptresult=mysqli_query($con,$deptsql);
-$deptrow=mysqli_fetch_array($deptresult);
-$progsql="SELECT sName from tbl_program where ID='$progID'";
-$progresult=mysqli_query($con,$progsql);
-$progrow=mysqli_fetch_array($progresult);
-$batchsql="SELECT sName from tbl_batch where ID='$batchID'";
-$batchresult=mysqli_query($con,$batchsql);
-$batchrow=mysqli_fetch_array($batchresult);
+                        </div>
+                        <div style="margin: 0px;" class="card-sub bg-white">
 
-$semsql="SELECT sName from tbl_semester where ID='$semID'";
-$semresult=mysqli_query($con,$semsql);
-$semrow=mysqli_fetch_array($semresult);
-$subsql="SELECT sName,sCode from tbl_subject where ID='$subID'";
-$subresult=mysqli_query($con,$subsql);
-$subrow=mysqli_fetch_array($subresult);
-$facsql="SELECT sName from tbl_faculty where ID='$facID'";
-$facresult=mysqli_query($con,$facsql);
-$facrow=mysqli_fetch_array($facresult);
-?>
-						<div class="col-md-4">
-							<div class="card  text-center" id="ca">
-							<a href="video.php?id=<?php echo $row['ID'];?>"  style="text-decoration:none;" title="<?php echo $subrow['sName']; ?>">
-									<div class="card-header">
-										<div class="card-title"><button class="btn btn-link btn-primary btn-lg" style="padding:0px;padding-right:5px;cursor:context-menu;"><i class='fas fa-book-open fa-green'></i></button>
-										<?php echo $subrow['sName']; ?>
-										</div>
-									</div>
-									<div class="card-body p-3">
-									<?php echo $deptrow['sName']; ?> <?php echo $batchrow['sName']; ?><br>Semester <?php echo $semrow['sName']; ?><br><?php echo $subrow['sCode']; ?>
-									</div>
-								</a>
-							</div>
-						</div>
+								<!---start of search---->
+							<input id="searchid" style="width:300px !important;" type="search" onkeyup="search()" class="form-control ml-auto float-left" placeholder="Search" aria-label="Search"
+                            aria-describedby="search-addon"/>
+                        </div>
+
+								<!---end of search---->
+								<div class="card-body">
+			
+									<div class="table-responsive">
+										<table class="table table-bordered" id="tableId">
+											<thead>
+												<tr>
+													<th>
+														<div class="form-check">
+															<label class="form-check-label">
+																<input class="form-check-input" id="select-all" type="checkbox" value="">
+																<span class="form-check-sign"></span>
+															</label>
+														</div>
+													</th>
+													<th>Student</th>
+													<th>Department</th>
+													<th>Program</th>
+													<th>Batch</th>
+													<th>Email</th>
+													<th>Phone</th>
+													<th>Gender</th>
+													<th class="text-center">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+<?php
+$pageNo=($page-1)*$resultPerPage;
+$sql1="SELECT * FROM tbl_student s,tbl_department d,tbl_program p,tbl_batch b where s.Dep_ID=d.ID and s.Batch_ID=b.ID and s.Prog_ID=p.ID and s.Dep_ID=$dept and s.Batch_ID=$batch and s.Prog_ID=$program order by s.ID DESC limit $pageNo,$resultPerPage";
+$s1=mysqli_query($con,$sql1);
+while(($row=mysqli_fetch_array($s1))==TRUE)
+{?>
+												<tr>
+													<th style="width:1%" scope="row">
+														<div class="form-check">
+															<label class="form-check-label">
+																<input class="form-check-input" type="checkbox" name="checkbox[]" value="<?php echo $row[0];?>" type="checkbox" value="">
+																<span class="form-check-sign"></span>
+															</label>
+														</div> 
+													</th>
+													<td><?php echo $row[4];?></td>
+													<td><?php echo $row[11];?></td>
+													<td><?php echo $row[14];?></td>
+													<td><?php echo $row[20];?></td>
+													<td><?php echo $row[5];?></td>
+													<td><?php echo $row[7];?></td>
+													<td><?php if($row[8]==0) echo "Male"; else if($row[8]==1) echo "Female"; else echo "Others";?></td>
+													<td class="text-center"><?php if($row[9]==1) echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>"; else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";?></td>
+												</tr>
+
 <?php
 }
 ?>
-
-
-						
-						
-					</div>
-					</div>
-			
-									
-			</div>
-		</div>
-	</div>
+											</tbody>
+										</table>
+										<div class="d-flex justify-content-center">
+										<a href="student_list.php?page=<?php echo ($page-1) ?>"><input type="button" class="btn btn-primary btn-border" value="<<"> </a>
+										<button class="btn btn-primary btn-border mr-2 ml-2"><?php echo ($page) ?></button>
+										<a href="student_list.php?page=<?php echo ($page+1) ?>"><input type="button" class="btn btn-primary btn-border" value=">>"> </a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 
 
 
@@ -237,9 +275,12 @@ $facrow=mysqli_fetch_array($facresult);
 			</form>
 			</div>
 		 <footer class="footer bg-dark2">
+				
+					
 					<div class="copyright ml-auto text-center">
 						 Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
 					</div>				
+				
 			</footer> 
 
 

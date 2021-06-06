@@ -1,19 +1,28 @@
 <?php
-	include ("..\class\connect.php");
-	include ("..\class\cls_sub_alloc.php");
-	include ("..\class\alert.php");
-
-	if(isset($_SESSION['username'])){
-
-	}
-	else {
-		header("location: ../index.php");
-	}
-if(isset($_SESSION['id'])){
-	unset($_SESSION['id']);
-	}
+include ("..\class\connect.php");
+include ("..\class\cls_faculty_video.php");
+    $retval=1;
+	$errMsg="";
+    $updateid = $_GET['updateid'];
+    if(isset($_GET['updateid'])){
+        $edit="SELECT * from tbl_video where ID=$updateid";
+        $updateQuery=mysqli_query($con,$edit);
+        $row=mysqli_fetch_array($updateQuery);
+    }
+    if(isset($_POST['submit']))
+    {
+        $id=$_SESSION['id'];
+        $title=$_POST['title'];
+        $link=$_POST['link'];
+        $vidobj= new Video();
+		$retval=$vidobj->updateVideo($updateid,$title,$link);
+		if($retval==1)
+		{			
+			$_SESSION['updateFlag']=1;
+			header("Location: video.php");
+		}
+		}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,110 +152,77 @@ if(isset($_SESSION['id'])){
 						<li class="nav-item">
 							<a href="index.php"><p style = "font-size: 1.1rem; color: black;">Home</p></a>
 						</li>
-	
+						<li class="nav-item">
+							<a href="video.php"><p style = "font-size: 1.1rem; color: black;">Video</p></a>
+						</li>
+						<li class="nav-item">
+							<a href="student_list.php"><p style = "font-size: 1.1rem; color: black;">Student List</p></a>
+						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<!----End of sidebar---->
-		<div  class="main-panel ">
-			<div style="" class="content bg-light"style="min-height:2000px;">
 
 
-			<div class="col-md-12">
-			<div class="card mt-4 bg-white">
-			<div class="card-header">
-                            <form action="" method="POST">
-                            <div class="card-title"> 
-                                <h3 style="font-size: 30px; display: inline-block;">Subjects</h3>
 
+		<div  class="main-panel align-middle ">
+			<div style="" class="bg-light content">
+
+			
+			
+
+				<div class="col-md-12 ">
+					<div class="card mt-4 bg-white">
+						<div class="card-header">
+						<div class="card-title"> 
+                                <h3 style="font-size: 30px; display: inline-block;">Video</h3>
                             </div>
-            </div>
-            <div style="margin: 0px;" class="card-sub bg-white">
-					<div class="card-body">
-					<div class="row">
-<?php 
-$email=$_SESSION['username'];
-$idsql="SELECT ID from tbl_faculty where sEmail='$email'";
-$idresult=mysqli_query($con,$idsql);
-$idrow=mysqli_fetch_assoc($idresult);
-$id=$idrow['ID'];
-$sql="SELECT * FROM tbl_subject_allocation where Faculty_ID=$id and iStatus=1";	
-$result = mysqli_query($con,$sql);
-while($row = mysqli_fetch_assoc($result)) { 
-$deptID=$row['Dep_ID'];
-$progID=$row['Prog_ID'];
-$batchID=$row['Batch_ID'];
-$semID=$row['Sem_ID'];
-$subID=$row['Subject_ID'];
-$facID=$row['Faculty_ID'];
-$deptsql="SELECT sName from tbl_department where ID='$deptID'";
-$deptresult=mysqli_query($con,$deptsql);
-$deptrow=mysqli_fetch_array($deptresult);
-$progsql="SELECT sName from tbl_program where ID='$progID'";
-$progresult=mysqli_query($con,$progsql);
-$progrow=mysqli_fetch_array($progresult);
-$batchsql="SELECT sName from tbl_batch where ID='$batchID'";
-$batchresult=mysqli_query($con,$batchsql);
-$batchrow=mysqli_fetch_array($batchresult);
-
-$semsql="SELECT sName from tbl_semester where ID='$semID'";
-$semresult=mysqli_query($con,$semsql);
-$semrow=mysqli_fetch_array($semresult);
-$subsql="SELECT sName,sCode from tbl_subject where ID='$subID'";
-$subresult=mysqli_query($con,$subsql);
-$subrow=mysqli_fetch_array($subresult);
-$facsql="SELECT sName from tbl_faculty where ID='$facID'";
-$facresult=mysqli_query($con,$facsql);
-$facrow=mysqli_fetch_array($facresult);
-?>
-						<div class="col-md-4">
-							<div class="card  text-center" id="ca">
-							<a href="video.php?id=<?php echo $row['ID'];?>"  style="text-decoration:none;" title="<?php echo $subrow['sName']; ?>">
-									<div class="card-header">
-										<div class="card-title"><button class="btn btn-link btn-primary btn-lg" style="padding:0px;padding-right:5px;cursor:context-menu;"><i class='fas fa-book-open fa-green'></i></button>
-										<?php echo $subrow['sName']; ?>
+						</div>
+						<div class="card-body">
+							<div class="col-md-5 mr-auto ml-auto ">
+								<div class="card mt-4  bg-light">
+									<div class="card-header bg-white">
+										<div class="card-title">
+											Add Video
 										</div>
 									</div>
-									<div class="card-body p-3">
-									<?php echo $deptrow['sName']; ?> <?php echo $batchrow['sName']; ?><br>Semester <?php echo $semrow['sName']; ?><br><?php echo $subrow['sCode']; ?>
+									<div class="card-body bg-white">
+										<form method="POST" action="">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Title</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="title" aria-describedby="emailHelp" placeholder="Enter Video Title" value="<?php echo $row['sTitle']; ?>"required>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Link</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="link" aria-describedby="emailHelp" placeholder="Enter Video Link" value="<?php echo $row['sUrl']; ?>" required>
+											</div>
+											<button type="submit" name="submit" class="btn btn-primary ml-1 float-right">Submit</button>
+											<a href="video.php"><input type="button" value="Cancel" class="btn btn-danger float-right"></a>
+										</form>
 									</div>
-								</a>
+								</div>
 							</div>
+
+
 						</div>
-<?php
-}
-?>
-
-
-						
-						
 					</div>
-					</div>
-			
-									
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-
-			</form>
+				</div>
 			</div>
 		 <footer class="footer bg-dark2">
+				
+					
 					<div class="copyright ml-auto text-center">
 						 Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
 					</div>				
+				
 			</footer> 
 
 
 			<!--<footer  class=" bg-dark2 text-center text-lg-start">
-				 Copyright -->
+				<!-- Copyright -->
 				<!--<div class="text-center p-3" >
-				  ï¿½ 2020 Copyright:
+				  © 2020 Copyright:
 				  <a class="text-light" href="">Web development team SSTM</a>
 				</div>-->
 				<!-- Copyright -->
@@ -258,7 +234,7 @@ $facrow=mysqli_fetch_array($facresult);
 		<!-- End Custom template -->
 	</div>
 	<!--   Core JS Files   -->
-	<script src="../js/core/jquery.3.2.1.min.js"></script>
+    <script src="../js/core/jquery.3.2.1.min.js"></script>
     <script src="../js/core/popper.min.js"></script>
     <script src="../js/core/bootstrap.min.js"></script>
     <!-- jQuery UI -->
@@ -273,63 +249,59 @@ $facrow=mysqli_fetch_array($facresult);
     <script src="../js/atlantis.min.js"></script>
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="../js/setting-demo2.js"></script>
-	<script src="../js/plugin/datatables/datatables.min.js"></script>
 
+<?php
+    if($retval==2){
+?>
 	<script>
-	document.getElementById('select-all').onclick = function() {
-            var checkboxes = document.getElementsByClassName('check-all');
-            for (var checkbox of checkboxes) {
-                checkbox.checked = this.checked;
-                }
-            }
-
-			function searchFunction() {
-			var input, filter, table, tr, td, i, txtValue;
-			input = document.getElementById("searchId");
-			filter = input.value.toUpperCase();
-			table = document.getElementById("tableId");
-			tr = table.getElementsByTagName("tr");
-			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[0];
-				if (td) {
-				txtValue = td.textContent || td.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-						}
-					}       
-				}
-			}
-			
-        // $(document).ready(function() {
-        //     $('#basic-datatables').DataTable({
-        //     });
-
-        //     $('#multi-filter-select').DataTable( {
-        //         "pageLength": 5,
-        //         initComplete: function () {
-        //             this.api().columns().every( function () {
-        //                 var column = this;
-        //                 var select = $('<select class="form-control"><option value=""></option></select>')
-        //                 .appendTo( $(column.footer()).empty() )
-        //                 .on( 'change', function () {
-        //                     var val = $.fn.dataTable.util.escapeRegex(
-        //                         $(this).val()
-        //                         );
-
-        //                     column
-        //                     .search( val ? '^'+val+'$' : '', true, false )
-        //                     .draw();
-        //                 } );
-
-        //                 column.data().unique().sort().each( function ( d, j ) {
-        //                     select.append( '<option value="'+d+'">'+d+'</option>' )
-        //                 } );
-        //             } );
-        //         }
-        //     });});
-	</script>
-
+$.notify({
+    // options
+    icon: 'glyphicon glyphicon-warning-sign',
+    title: 'Duplicate entry..!',
+    message: 'The Video you entered already exists..',
+    target: '_blank'
+},{
+    // settings
+    element: 'body',
+    position: null,
+    type: "info",
+    allow_dismiss: true,
+    newest_on_top: false,
+    showProgressbar: false,
+    placement: {
+        from: "top",
+        align: "center"
+    },
+    offset: 20,
+    spacing: 10,
+    z_index: 1031,
+    delay: 5000,
+    timer: 2000,
+    url_target: '_blank',
+    mouse_over: null,
+    animate: {
+        enter: 'animated fadeInDown',
+        exit: 'animated fadeOutUp'
+    },
+    onShow: null,
+    onShown: null,
+    onClose: null,
+    onClosed: null,
+    icon_type: 'class',
+    template: '<div style="background-color:#fff5c8" data-notify="container" class="col-xs-11 col-sm-3 alert alert-warning" role="alert">' +
+        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+        '<span data-notify="icon"></span> ' +
+        '<span data-notify="title">{1}</span> ' +
+        '<span style="color:#4d2e1a" data-notify="message">{2}</span>' +
+        '<div class="progress" data-notify="progressbar">' +
+            '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+        '</div>' +
+        '<a href="{3}" target="{4}" data-notify="url"></a>' +
+    '</div>' 
+});
+</script>
+<?php
+}
+?>
 </body>
 </html>
