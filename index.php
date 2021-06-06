@@ -73,7 +73,7 @@ if(isset($_COOKIE['cookieEmail'])) {
 						<input class="form-radio-input ml-4" type="radio" name="user" value="faculty"  <?php if($cookieuser=="faculty") echo"checked";?>>
 						<span class="">Faculty</span>
 						<?php } else { ?>
-							<input class="form-radio-input ml-4" type="radio" name="user" value="student">
+							<input class="form-radio-input ml-4" type="radio" name="user" value="student" checked>
 						<span class="">Student</span>
 						<input class="form-radio-input ml-4" type="radio" name="user" value="faculty">
 						<span class="">Faculty</span>
