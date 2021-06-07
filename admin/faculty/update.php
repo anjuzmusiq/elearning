@@ -56,7 +56,7 @@
 </head>
 <body>
 <div class="wrapper">
-		<div class="main-header">
+<div class="main-header">
 			<!-- Logo Header -->
 			<div class="logo-header bg-light" >
 				
@@ -79,21 +79,24 @@
 			<?php include ("../../include/menu.php"); ?>
 			<!-- End Navbar and sidebar -->
 
-
-
 		<div  class="main-panel align-middle ">
 			<div style="" class="bg-light content">
 
 				<div class="col-md-12 ">
-					<div class="card mt-4 bg-light">
-						<div class="card-header bg-white">
+					<div class="card mt-4 bg-white">
+						<div class="card-header">
 						<div class="card-title"> 
-								<h3 style="font-size: 30px; display: inline-block;"> Update Faculty </h3>
+								<h3 style="font-size: 30px; display: inline-block;">Faculty </h3>
 							</div>
 						</div>
-						<div class="card-body bg-white">
+						<div class="card-body">
 							<div class="col-md-5 mr-auto ml-auto ">
-								<div class="card mt-4  bg-light">
+								<div class="card mt-4">
+								<div class="card-header">
+										<div class="card-title">
+											Edit Faculty
+										</div>
+									</div>
 									<div class="card-body bg-white">
 										<form action="" method="POST">
 											<div class="form-group">
@@ -207,7 +210,7 @@
 		if(isset($_SESSION['duplicateFlag']))
 		{
 			if(($_SESSION['duplicateFlag'])==1){
-				custom_alert("Duplicate entry","The Faculty already exists","warning");
+				custom_alert("Warning..!","Faculty already exists","warning");
 			}
 			unset($_SESSION['duplicateFlag']);
 		}

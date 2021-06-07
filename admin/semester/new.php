@@ -158,7 +158,7 @@ if(isset($_POST['submit']))
 <?php
 
     if($retval==2){
-		custom_alert("Duplicate entry","The semester already exists","warning");
+		custom_alert("Warning..!","Semester already exists","warning");
 	}
 ?>
 </body>

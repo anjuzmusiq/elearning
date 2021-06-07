@@ -84,15 +84,15 @@
 					<div class="card mt-4 bg-light">
 						<div class="card-header bg-white">
 							<div class="card-title"> 
-								<h3 style="font-size: 30px; display: inline-block;"> Add Faculty </h3>
+								<h3 style="font-size: 30px; display: inline-block;">Faculty </h3>
 							</div>
 						</div>
 						<div class="card-body bg-white">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
 									<div class="card-header bg-white">
-										<div  style="font-size: 27px;" class="card-title">
-											Faculty
+										<div class="card-title">
+										Add Faculty
 										</div>
 									</div>
 									<div class="card-body bg-white">
@@ -207,7 +207,7 @@
 		if(isset($_SESSION['duplicateFlag']))
 		{
 			if(($_SESSION['duplicateFlag'])==1){
-				custom_alert("Duplicate entry","The program already exists","warning");
+				custom_alert("Warning..!","Faculty already exists","warning");
 			}
 			unset($_SESSION['duplicateFlag']);
 		}

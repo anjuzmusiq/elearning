@@ -73,8 +73,8 @@
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
 								<div class="dropdown-user-scroll scrollbar-outer">
 									<li>
-										<a class="dropdown-item" href="..\changepassword.php">Change password</a>
-											<a type="submit" href="..\logout.php"  name="logout" class="dropdown-item" value="">Logout</a>
+										<a class="dropdown-item" href="changepassword.php">Change password</a>
+											<a type="submit" href="logout.php"  name="logout" class="dropdown-item" value="">Logout</a>
 									</li>
 								</div>
 							</ul>

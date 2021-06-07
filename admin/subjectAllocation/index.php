@@ -403,31 +403,31 @@
 	<?php
 	if(isset($_SESSION['successFlag'])){
 		if(($_SESSION['successFlag'])==1){
-			custom_alert("Success..!","You have allocated subject","success");
+			custom_alert("Success..!","Allocated subject successfully","success");
 			unset($_SESSION['successFlag']);
 		}
 	}
 	if(isset($_SESSION['deleteFlag'])){
 		if(($_SESSION['deleteFlag'])==1){
-			custom_alert("Success..!","You have deleted allocated subject","success");
+			custom_alert("Success..!","Deleted allocated subject successfully","success");
 			unset($_SESSION['deleteFlag']);
 		}
 	}
 		if(isset($_SESSION['updateFlag'])){
 		if (($_SESSION['updateFlag'])==1){
-			custom_alert("Success..!","You have successfully updated allocated subject","success");
+			custom_alert("Success..!","Subject allocated successfully","success");
 			unset($_SESSION['updateFlag']);
 		}
 	}
 		if(isset($_SESSION['pubFlag'])){
 		if (($_SESSION['pubFlag'])==1){
-			custom_alert("Success..!","Allocated subject published succesfully","success");
+			custom_alert("Success..!","Status published succesfully","success");
 			unset($_SESSION['pubFlag']);
 		}
 	}
 		if(isset($_SESSION['pubFlag'])){
 		if (($_SESSION['pubFlag'])==2){
-			custom_alert("Success..!","Allocated subject unpublished successfully","success");
+			custom_alert("Success..!","Status unpublished successfully","success");
 			unset($_SESSION['pubFlag']);
 		}
 	}

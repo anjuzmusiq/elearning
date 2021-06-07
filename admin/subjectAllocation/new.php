@@ -85,15 +85,15 @@
 					<div class="card mt-4 bg-light">
 						<div class="card-header bg-white">
 							<div class="card-title"> 
-								<h3 style="font-size: 30px; display: inline-block;"> Allocate Subject </h3>
+								<h3 style="font-size: 30px; display: inline-block;">Subject Allocation</h3>
 							</div>
 						</div>
 						<div class="card-body bg-white">
 							<div class="col-md-5 mr-auto ml-auto ">
 								<div class="card mt-4  bg-light">
 									<div class="card-header bg-white">
-										<div  style="font-size: 27px;" class="card-title">
-											Add
+										<div class="card-title">
+											Add Allocation
 										</div>
 									</div>
 									<div class="card-body bg-white">
@@ -184,7 +184,7 @@
 		if(isset($_SESSION['duplicateFlag']))
 		{
 			if(($_SESSION['duplicateFlag'])==1){
-				custom_alert("Warning..!","This subject is already allocated","warning");
+				custom_alert("Warning..!","Subject is already allocated","warning");
 			}
 			unset($_SESSION['duplicateFlag']);
 		}

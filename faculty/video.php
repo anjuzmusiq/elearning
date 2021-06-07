@@ -464,7 +464,7 @@ for (var i = 0; i < trs.length; i++) {
 <?php
         if(isset($_SESSION['successFlag'])){
             if(($_SESSION['successFlag'])==1){
-                custom_alert("Success..!","Video  added succesfully","success");
+                custom_alert("Success..!","Video added succesfully","success");
                 unset($_SESSION['successFlag']);
             }
         }
@@ -476,20 +476,20 @@ for (var i = 0; i < trs.length; i++) {
 		}
         if(isset($_SESSION['deleteFlag'])){
             if(($_SESSION['deleteFlag'])==1){
-                custom_alert("Success..!","Video  deleted successfully","success");
+                custom_alert("Success..!","Video deleted successfully","success");
                 header("Location:index.php");
                 unset($_SESSION['deleteFlag']);
             }
         }
 		if(isset($_SESSION['pubFlag'])){
             if(($_SESSION['pubFlag'])==1){
-                custom_alert("Success..!","Video  published successfully","success");
+                custom_alert("Success..!","Video published successfully","success");
                 unset($_SESSION['pubFlag']);
             }
         }
 		if(isset($_SESSION['unpubFlag'])){
             if(($_SESSION['unpubFlag'])==1){
-                custom_alert("Success..!","Video  unpublished successfully","success");
+                custom_alert("Success..!","Video unpublished successfully","success");
                 unset($_SESSION['unpubFlag']);
             }
         }

@@ -86,7 +86,7 @@
 					<div class="card mt-4 bg-white">
 						<div class="card-header">
 						<div class="card-title"> 
-								<h3 style="font-size: 30px; display: inline-block;"> Update program </h3>
+								<h3 style="font-size: 30px; display: inline-block;">Program </h3>
 							</div>
 						</div>
 						<div class="card-body">
@@ -94,7 +94,7 @@
 								<div class="card mt-4">
 								<div class="card-header">
 										<div class="card-title">
-											Update
+											Edit Program
 										</div>
 									</div>
 									<div class="card-body">
@@ -167,7 +167,7 @@
 		if(isset($_SESSION['duplicateFlag']))
 		{
 			if(($_SESSION['duplicateFlag'])==1){
-				custom_alert("Duplicate entry","The program already exists","warning");
+				custom_alert("Warning..!","Program already exists","warning");
 			}
 			unset($_SESSION['duplicateFlag']);
 		}

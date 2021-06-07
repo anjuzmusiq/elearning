@@ -382,31 +382,31 @@
 	<?php
 	if(isset($_SESSION['successFlag'])){
 		if(($_SESSION['successFlag'])==1){
-			custom_alert("Data inserted","You have entered a program","success");
+			custom_alert("Success..!","Program added successfully","success");
 			unset($_SESSION['successFlag']);
 		}
 	}
 	if(isset($_SESSION['deleteFlag'])){
 		if(($_SESSION['deleteFlag'])==1){
-			custom_alert("Deleted","You have successfully deleted the program","success");
+			custom_alert("Success..!","Program deleted successfully","success");
 			unset($_SESSION['deleteFlag']);
 		}
 	}
 		if(isset($_SESSION['updateFlag'])){
 		if (($_SESSION['updateFlag'])==1){
-			custom_alert("Updated","You have successfully updated the program","success");
+			custom_alert("Success..!","Program updated successfully","success");
 			unset($_SESSION['updateFlag']);
 		}
 	}
 		if(isset($_SESSION['pubFlag'])){
 		if (($_SESSION['pubFlag'])==1){
-			custom_alert("Status active","You have successfully changed the status to active","success");
+			custom_alert("Success..! active","Program published successfully","success");
 			unset($_SESSION['pubFlag']);
 		}
 	}
 		if(isset($_SESSION['pubFlag'])){
 		if (($_SESSION['pubFlag'])==2){
-			custom_alert("Status inactive","You have successfully changed the status to inactive","success");
+			custom_alert("Success..!","Program unpublished successfully","success");
 			unset($_SESSION['pubFlag']);
 		}
 	}
