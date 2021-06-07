@@ -19,18 +19,16 @@
 		$semID  = $row['Sem_ID'];
     }
 
-
-
-	if(isset($_POST['dep']))
+	if(isset($_POST['depID']))
 	{
-		$department = $_POST['dep'];
+		$department = $_POST['depID'];
 		$faculty = $_POST['faculty'];
         $program = $_POST['program'];
         $batch = $_POST['batch'];
         $subject = $_POST['subject'];
         $semester = $_POST['semester'];
         $SAobj= new SubjectAllocation();
-		$retval=$SAobj->addSubAlloc($department, $faculty, $program, $batch, $subject, $semester);
+		$retval=$SAobj->updateSubAlloc($department, $faculty, $program, $batch, $subject, $semester, $updateid);
 		if($retval == 1) {
 			header("Location: index.php");
 		}
@@ -72,12 +70,7 @@
 
 </head>
 <body>
-
-
-
-		
-
-	<div class="wrapper">
+<div class="wrapper">
 	<div class="main-header">
 			<!-- Logo Header -->
 			<div class="logo-header bg-light" >
@@ -160,13 +153,10 @@
 				</div>
 			</div>
 		 <footer class="footer bg-dark2">
-				
-					
-					<div class="copyright ml-auto text-center">
-						 Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
-					</div>				
-				
-			</footer> 
+			<div class="copyright ml-auto text-center">
+					Copyright  2021 &copy;<!--<i class="fa fa-heart heart text-danger"></i>--> Powered by <span  style= " font-weight: bolder;  color: rgb(255, 255, 255);" class="avatar-img  rounded-circle">Web Development Team SSTM</span>
+			</div>				
+		</footer> 
 
 
 			<!--<footer  class=" bg-dark2 text-center text-lg-start">
@@ -212,17 +202,7 @@
 		}
 		?>
 
-
-
 <script>
-
-
-
-
-
-
-
-	
 	$(document).ready(function(){
 		 $("#progFetch").change(function(){
 			var getDepartmentID = $("#progFetch").val();
@@ -306,7 +286,7 @@ $(document).ready(function(){
 				$(".program-container").html("");
 				$.ajax({
 					type:'post',
-					data:{department_id:getDepartmentID,faculty_id:getFacultyId,batch_id:getBatchID},
+					data:{department_id:getDepartmentID,faculty_id:getFacultyId,program_ID:getProgramId},
 					url: 'ajaxget1.php',
 					success:function(returnData){
 						$(".program-container").html(returnData);
@@ -323,7 +303,7 @@ $(document).ready(function(){
 										$(".batch-container").html("");
 										$.ajax({
 											type:'post',
-											data:{program_id:getProgramID,batch_id:getBatchID},
+											data:{program_id:getProgramID,batch_id:getBatchID,subject_id:getSubjectID},
 											url: 'ajaxget1.php',
 											success:function(returnData){
 												$(".batch-container").html(returnData);

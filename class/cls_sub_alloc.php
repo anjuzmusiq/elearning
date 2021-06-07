@@ -51,11 +51,11 @@ Class SubjectAllocation
             }
         }
     
-    function updateSubAlloc($editid,$subAlloc,$depID){
+    function updateSubAlloc($department, $faculty, $program, $batch, $subject, $semester, $updateid){
         include ("connect.php");
 
-        if($this->duplicateSubAlloc($subAlloc,$depID)==0){
-            $update="UPDATE tbl_subject_allocation set sName= '$subAlloc', Dep_ID = '$depID' where ID = '$editid'";
+        if($this->duplicateSubAlloc($department, $faculty, $program, $batch, $subject, $semester)==0){
+            $update="UPDATE tbl_subject_allocation set Dep_id= '$department', Batch_ID = '$batch', Prog_ID = '$program', Subject_ID = '$subject', Faculty_ID = '$faculty', Sem_ID = '$semester' where ID = '$updateid'";
             $uResult=mysqli_query($con,$update);
             $row2=mysqli_fetch_array($uResult);
                 $_SESSION['updateFlag']=1;

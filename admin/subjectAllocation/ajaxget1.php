@@ -25,7 +25,7 @@
 				$rs3 = mysqli_query($con,$sql3);
 				$faculty3 = mysqli_fetch_assoc($rs3)
 				?>
-				<option seleced hidden value=<?php echo $faculty3['ID']; ?>><?php echo $faculty3['sName'];?></option>
+				<option selected hidden value=<?php echo $faculty3['ID']; ?>><?php echo $faculty3['sName'];?></option>
 				<?php
 			}
 			while($faculty = mysqli_fetch_assoc($rs2))
@@ -50,13 +50,13 @@
 			echo '<label class = "mt-2" for="defaultSelect">Program</label>';
 			echo '<select name="program" class="form-control" id="batchFetch" required>';
 			
-			if(isset($_POST['program_id'])){
-				$programID = $_POST['program_id'];
+			if(isset($_POST['program_ID'])){
+				$programID = $_POST['program_ID'];
 				$sql4 = "select * from tbl_program where ID=$programID and iStatus=1";
 				$rs4 = mysqli_query($con,$sql4);
 				$program3 = mysqli_fetch_assoc($rs4)
 				?>
-				<option seleced hidden value=<?php echo $program3['ID']; ?>><?php echo $program3['sName'];?></option>
+				<option selected hidden value=<?php echo $program3['ID']; ?>><?php echo $program3['sName'];?></option>
 				<?php
 			}
 			
@@ -65,7 +65,6 @@
 				echo '<option value="'.$program['ID'].'">'.$program['sName'].'</option>';
 			}
 			echo '</select>';
-
 
 		}
 		
@@ -95,7 +94,7 @@
 				$batch3 = mysqli_fetch_assoc($rs5);
 				echo $batchID ;
 				?>
-				<option seleced hidden value=<?php echo $batch3['ID']; ?>><?php echo $batch3['sName'];?></option>
+				<option selected hidden value=<?php echo $batch3['ID']; ?>><?php echo $batch3['sName'];?></option>
 				<?php
 			}
 			while($batch = mysqli_fetch_assoc($rs))
@@ -127,7 +126,7 @@
 				$subject3 = mysqli_fetch_assoc($rs6);
 				
 				?>
-				<option seleced hidden value=<?php echo $subject3['ID']; ?>><?php echo $subject3['sName'];?></option>
+				<option selected hidden value=<?php echo $subject3['ID']; ?>><?php echo $subject3['sName'];?></option>
 				<?php
 			}
 			while($subject = mysqli_fetch_assoc($rs2))
