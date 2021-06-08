@@ -3,6 +3,15 @@ include ("..\class\connect.php");
 include ("..\class\cls_faculty_video.php");
 $retval=1;
 $errmsg="";
+$id=$_SESSION['id'];
+$edit="SELECT * from tbl_subject_allocation where ID=$id";
+$updateQuery=mysqli_query($con,$edit);
+$row=mysqli_fetch_array($updateQuery);
+$subjectid=$row['Subject_ID'];
+$subjectQuery="SELECT * from tbl_subject where ID=$subjectid";
+$subResult=mysqli_query($con,$subjectQuery);
+$subrow=mysqli_fetch_array($subResult);
+$subject=$subrow['sName'];
 if(isset($_POST['submit']))
 {
 	$id=$_SESSION['id'];
@@ -178,7 +187,7 @@ if(isset($_POST['submit']))
 								<div class="card mt-4  bg-light">
 									<div class="card-header bg-white">
 										<div class="card-title">
-											Add Video
+											Add Video (<?php echo $subject; ?>)
 										</div>
 									</div>
 									<div class="card-body bg-white">

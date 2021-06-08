@@ -195,11 +195,16 @@ else
                             </div>
                         </div>
                         <div style="margin: 0px;" class="card-sub bg-white">
-
+<?php
+$sql1="SELECT * FROM tbl_student s,tbl_department d,tbl_program p,tbl_batch b where s.Dep_ID=d.ID and s.Batch_ID=b.ID and s.Prog_ID=p.ID and s.Dep_ID=$dept and s.Batch_ID=$batch and s.Prog_ID=$program order by s.ID DESC";
+$s1=mysqli_query($con,$sql1);
+$row=mysqli_fetch_array($s1);
+?>
 								<!---start of search---->
 							<input id="searchid" style="width:300px !important;" type="search" onkeyup="search()" class="form-control ml-auto float-left" placeholder="Search" aria-label="Search"
                             aria-describedby="search-addon"/>
                         </div>
+						<h4 class="text-center">Department: <?php echo $row[11];?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Program: <?php echo $row[14];?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Batch: <?php echo $row[20];?> </h4>
 
 								<!---end of search---->
 								<div class="card-body">
@@ -217,9 +222,6 @@ else
 														</div>
 													</th>
 													<th>Student</th>
-													<th>Department</th>
-													<th>Program</th>
-													<th>Batch</th>
 													<th>Email</th>
 													<th>Phone</th>
 													<th>Gender</th>
@@ -243,9 +245,6 @@ while(($row=mysqli_fetch_array($s1))==TRUE)
 														</div> 
 													</th>
 													<td><?php echo $row[4];?></td>
-													<td><?php echo $row[11];?></td>
-													<td><?php echo $row[14];?></td>
-													<td><?php echo $row[20];?></td>
 													<td><?php echo $row[5];?></td>
 													<td><?php echo $row[7];?></td>
 													<td><?php if($row[8]==0) echo "Male"; else if($row[8]==1) echo "Female"; else echo "Others";?></td>

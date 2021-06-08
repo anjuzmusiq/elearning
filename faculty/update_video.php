@@ -8,6 +8,11 @@ include ("..\class\cls_faculty_video.php");
         $edit="SELECT * from tbl_video where ID=$updateid";
         $updateQuery=mysqli_query($con,$edit);
         $row=mysqli_fetch_array($updateQuery);
+		$subjectid=$row['Subject_ID'];
+		$subjectQuery="SELECT * from tbl_subject where ID=$subjectid";
+        $subResult=mysqli_query($con,$subjectQuery);
+        $subrow=mysqli_fetch_array($subResult);
+		$subject=$subrow['sName'];
     }
     if(isset($_POST['submit']))
     {
@@ -184,7 +189,7 @@ include ("..\class\cls_faculty_video.php");
 								<div class="card mt-4  bg-light">
 									<div class="card-header bg-white">
 										<div class="card-title">
-											Add Video
+											Edit Video (<?php echo $subject; ?>)
 										</div>
 									</div>
 									<div class="card-body bg-white">
