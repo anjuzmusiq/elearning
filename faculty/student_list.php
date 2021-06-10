@@ -316,60 +316,41 @@ while(($row=mysqli_fetch_array($s1))==TRUE)
 	<script src="../js/plugin/datatables/datatables.min.js"></script>
 
 	<script>
-	document.getElementById('select-all').onclick = function() {
-            var checkboxes = document.getElementsByClassName('check-all');
-            for (var checkbox of checkboxes) {
-                checkbox.checked = this.checked;
-                }
-            }
+    function search() {
 
-			function searchFunction() {
-			var input, filter, table, tr, td, i, txtValue;
-			input = document.getElementById("searchId");
-			filter = input.value.toUpperCase();
-			table = document.getElementById("tableId");
-			tr = table.getElementsByTagName("tr");
-			for (i = 0; i < tr.length; i++) {
-				td = tr[i].getElementsByTagName("td")[0];
-				if (td) {
-				txtValue = td.textContent || td.innerText;
-				if (txtValue.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-						}
-					}       
-				}
-			}
-			
-        // $(document).ready(function() {
-        //     $('#basic-datatables').DataTable({
-        //     });
+// Declare variables 
+var input = document.getElementById("searchid");
+var filter = input.value.toUpperCase();
+var table = document.getElementById("tableId");
+var trs = table.tBodies[0].getElementsByTagName("tr");
 
-        //     $('#multi-filter-select').DataTable( {
-        //         "pageLength": 5,
-        //         initComplete: function () {
-        //             this.api().columns().every( function () {
-        //                 var column = this;
-        //                 var select = $('<select class="form-control"><option value=""></option></select>')
-        //                 .appendTo( $(column.footer()).empty() )
-        //                 .on( 'change', function () {
-        //                     var val = $.fn.dataTable.util.escapeRegex(
-        //                         $(this).val()
-        //                         );
+// Loop through first tbody's rows
+for (var i = 0; i < trs.length; i++) {
 
-        //                     column
-        //                     .search( val ? '^'+val+'$' : '', true, false )
-        //                     .draw();
-        //                 } );
+  // define the row's cells
+  var tds = trs[i].getElementsByTagName("td");
 
-        //                 column.data().unique().sort().each( function ( d, j ) {
-        //                     select.append( '<option value="'+d+'">'+d+'</option>' )
-        //                 } );
-        //             } );
-        //         }
-        //     });});
-	</script>
+  // hide the row
+  trs[i].style.display = "none";
+
+  // loop through row cells
+  for (var i2 = 0; i2 < tds.length; i2++) {
+
+	// if there's a match
+	if (tds[i2].innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+	  // show the row
+	  trs[i].style.display = "";
+
+	  // skip to the next row
+	  continue;
+
+	}
+  }
+}
+
+}
+</script> 
 
 </body>
 </html>
