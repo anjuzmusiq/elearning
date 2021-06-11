@@ -12,6 +12,12 @@
 if(isset($_SESSION['id'])){
 	unset($_SESSION['id']);
 	}
+	include ("..\class\connect.php");
+$email=$_SESSION['username'];
+$namesql="SELECT * from tbl_faculty where sEmail='$email'";
+$nameresult=mysqli_query($con,$namesql);
+$namerow=mysqli_fetch_array($nameresult);
+$name=$namerow['sName'];
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +112,7 @@ if(isset($_SESSION['id'])){
 							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
 								<span>
 									<!-- <span class="user-level" onClick="location.href='index.php';" style=" margin-top:15px;"> Administrator</span> -->
-										<span style=" margin-top:15px;" class="user-level fw-bold" onclick="hide(); return false">Faculty</span>
+										<span style=" margin-top:15px;" class="user-level fw-bold" onclick="hide(); return false"><?php echo $name; ?></span>
 								</span>
 							</a>
 							<!--<div class="clearfix"></div>

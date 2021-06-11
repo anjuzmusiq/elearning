@@ -19,8 +19,9 @@ include ("..\class\cls_faculty_video.php");
         $id=$_SESSION['id'];
         $title=$_POST['title'];
         $link=$_POST['link'];
+        $udate=$_POST['udate'];
         $vidobj= new Video();
-		$retval=$vidobj->updateVideo($updateid,$title,$link);
+		$retval=$vidobj->updateVideo($updateid,$title,$link,$udate);
 		if($retval==1)
 		{			
 			$_SESSION['updateFlag']=1;
@@ -199,8 +200,12 @@ include ("..\class\cls_faculty_video.php");
 												<input type="text" class="form-control" id="exampleInputEmail1" name="title" aria-describedby="emailHelp" placeholder="Enter Video Title" value="<?php echo $row['sTitle']; ?>"required>
 											</div>
 											<div class="form-group">
-												<label for="exampleInputEmail1">Link</label>
+												<label for="exampleInputEmail1">Link ( eg:https://www.youtube.com/embed/EPivf6D7iec )</label>
 												<input type="text" class="form-control" id="exampleInputEmail1" name="link" aria-describedby="emailHelp" placeholder="Enter Video Link" value="<?php echo $row['sUrl']; ?>" required>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Upload Date</label>
+												<input class="form-control " name="udate" placeholder="date" value="<?php echo $row['dtDate']; ?>" type="date" >
 											</div>
 											<button type="submit" name="submit" class="btn btn-primary ml-1 float-right">Submit</button>
 											<a href="video.php"><input type="button" value="Cancel" class="btn btn-danger float-right"></a>

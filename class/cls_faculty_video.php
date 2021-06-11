@@ -1,7 +1,7 @@
 <?php
 Class Video
 {
-    function addVideo($id,$title,$link)
+    function addVideo($id,$title,$link,$udate)
     {
         include ("connect.php");
         if($this->duplicateVideo($title)==0)
@@ -15,7 +15,7 @@ Class Video
             $subject=$row['Subject_ID'];
             $sem=$row['Sem_ID'];
             $faculty=$row['Faculty_ID'];
-            $sql1="INSERT INTO tbl_video(Dep_ID,Batch_ID,Prog_ID,Subject_ID,Sem_ID ,Faculty_ID,sTitle,sUrl,iStatus)values($dept,$batch,$program,$subject,$sem,$faculty,'$title','$link',1)";
+            $sql1="INSERT INTO tbl_video(Dep_ID,Batch_ID,Prog_ID,Subject_ID,Sem_ID ,Faculty_ID,sTitle,sUrl,dtDate,iStatus)values($dept,$batch,$program,$subject,$sem,$faculty,'$title','$link','$udate',1)";
             $result1=mysqli_query($con,$sql1);
             if($result1==TRUE)
             {
@@ -61,11 +61,11 @@ Class Video
                return 1;
             }
     } 
-    function updateVideo($editid,$editname,$link){
+    function updateVideo($editid,$editname,$link,$udate){
         include ("connect.php");
         if($this->duplicateVideo1($editid,$editname)==0)
         {
-            $update="UPDATE tbl_video set sTitle= '$editname', sUrl='$link' where ID = '$editid'";
+            $update="UPDATE tbl_video set sTitle= '$editname', sUrl='$link', dtDate='$udate' where ID = '$editid'";
             $Result=mysqli_query($con,$update);
             $row2=mysqli_fetch_array($Result);
             if($Result==TRUE) {
