@@ -54,17 +54,30 @@ Class Faculty
 
     function deleteFac($deleteid){
         include ("connect.php");
-        
-        $sql="DELETE from tbl_faculty where ID = '$deleteid'";
-        $result=mysqli_query($con,$sql);
-        if(isset($result)) {
-            $_SESSION['deleteFlag']=1;
-            return 1;
-            }
-        else {
-                return 0;
-            }
+        $subsql="Select * from tbl_subject_allocation where Faculty_ID = '$deleteid'";
+        $subresult=mysqli_query($con,$subsql);
+        $subrow=mysqli_num_rows($subresult);
+        $vidsql="Select * from tbl_video where Faculty_ID ='$deleteid'";
+        $vidresult=mysqli_query($con,$vidsql);
+        $vidrow=mysqli_num_rows($vidresult);
+        if(($subrow>0) || ($vidrow>0))
+        {
+            $_SESSION['duplicateFlag']=3;
+            return 3;
         }
+        else
+        {
+            $sql="DELETE from tbl_faculty where ID = '$deleteid'";
+            $result=mysqli_query($con,$sql);
+            if(isset($result)) {
+                $_SESSION['deleteFlag']=1;
+                return 1;
+                }
+            else {
+                    return 0;
+                }
+        }
+    }
     
     function updateFac($editid, $fac, $desi, $quali, $email, $gender, $phone, $depID){
         include ("connect.php");

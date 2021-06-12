@@ -127,7 +127,7 @@
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Phone</label>
-												<input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone" required>
+												<input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone" maxlength="10" pattern="[0-9]*" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleFormControlSelect1">Department</label>

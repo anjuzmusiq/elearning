@@ -405,6 +405,13 @@
 			unset($_SESSION['pubFlag']);
 		}
 	}
+	if(isset($_SESSION['duplicateFlag']))
+	{
+		if(($_SESSION['duplicateFlag'])==3){
+			custom_alert("Warning..!","Faculty is dependent!! Cant Execute delete action","warning");
+		}
+		unset($_SESSION['duplicateFlag']);
+	}
 	?>
 </body>
 </html>
