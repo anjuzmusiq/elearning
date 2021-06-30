@@ -18,10 +18,11 @@ include ("..\class\cls_faculty_video.php");
     {
         $id=$_SESSION['id'];
         $title=$_POST['title'];
+		$desc=$_POST['desc'];
         $link=$_POST['link'];
         $udate=$_POST['udate'];
         $vidobj= new Video();
-		$retval=$vidobj->updateVideo($updateid,$title,$link,$udate);
+		$retval=$vidobj->updateVideo($updateid,$title,$desc,$link,$udate);
 		if($retval==1)
 		{			
 			$_SESSION['updateFlag']=1;
@@ -202,6 +203,10 @@ include ("..\class\cls_faculty_video.php");
 											<div class="form-group">
 												<label for="exampleInputEmail1">Link ( eg:https://www.youtube.com/embed/EPivf6D7iec )</label>
 												<input type="text" class="form-control" id="exampleInputEmail1" name="link" aria-describedby="emailHelp" placeholder="Enter Video Link" value="<?php echo $row['sUrl']; ?>" required>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Description</label>
+												<input type="text"  class="form-control" id="exampleInputEmail1" name="desc" aria-describedby="emailHelp" placeholder="Enter Video Link" value="<?php echo $row['sDescription']; ?>" required>
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Upload Date</label>

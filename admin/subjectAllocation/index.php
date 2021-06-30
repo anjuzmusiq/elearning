@@ -178,7 +178,7 @@
 											<tbody>
 											<?php 
 												$pageNo=($page-1)*$resultPerPage;
-												$sql="SELECT* FROM tbl_subject_allocation limit $pageNo,$resultPerPage";	
+												$sql="SELECT* FROM tbl_subject_allocation order by ID DESC limit $pageNo,$resultPerPage";	
 												$result = mysqli_query($con,$sql);
 
 													while($row = mysqli_fetch_assoc($result)) { 

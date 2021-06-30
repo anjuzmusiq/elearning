@@ -16,10 +16,11 @@ if(isset($_POST['submit']))
 {
 	$id=$_SESSION['id'];
 	$title=$_POST['title'];
+	$desc=$_POST['desc'];
 	$link=$_POST['link'];
 	$udate=$_POST['udate'];
 	$vidobj= new Video();
-	$retval=$vidobj->addVideo($id,$title,$link,$udate);
+	$retval=$vidobj->addVideo($id,$title,$desc,$link,$udate);
 	if($retval==1)
 		{
 			$_SESSION['successFlag']=1;
@@ -196,6 +197,10 @@ if(isset($_POST['submit']))
 											<div class="form-group">
 												<label for="exampleInputEmail1">Title</label>
 												<input type="text" class="form-control" id="exampleInputEmail1" name="title" aria-describedby="emailHelp" placeholder="Enter Video Title"required>
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Description</label>
+												<textarea rows="4" cols="100" type="text" class="form-control" id="exampleInputEmail1" name="desc" aria-describedby="emailHelp" placeholder="Enter Video Description"required></textarea>
 											</div>
 											<div class="form-group">
 												<label for="exampleInputEmail1">Link ( eg:https://www.youtube.com/embed/EPivf6D7iec )</label>

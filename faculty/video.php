@@ -281,6 +281,7 @@ if(isset($_POST['checkbox'])){
 														</div>
 													</th>
 													<th>Title</th>
+													<th>Description</th>
 													<th>Video Link</th>
 													<th>Upload Date</th>
 													<th class="text-center">Status</th>
@@ -305,6 +306,7 @@ while(($row=mysqli_fetch_array($s1))==TRUE)
 														</div> 
 													</th>
 													<td><?php echo $row['sTitle'];?></td>
+													<td><?php echo $row['sDescription'];?></td>
 													<td><?php echo $row['sUrl'];?></td>
 													<td><?php echo $row['dtDate'];?></td>
 													<td class="text-center"><?php if($row['iStatus']==1) echo "<button class='btn btn-link btn-success btn-lg' style='cursor:context-menu;'><i class='fa fa-check fa-green'></i></button>"; else echo "<button class='btn btn-link btn-danger btn-lg' style='cursor:context-menu;'><i class='fa fa-times'></i></button";?></td>

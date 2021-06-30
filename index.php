@@ -118,7 +118,7 @@ if(isset($_COOKIE['cookieEmail'])) {
 						</div>
 
 						<div>
-							<a href="#" class="txt1">
+							<a href="forgotpassword.php" class="txt1">
 								Forgot Password?
 							</a>
 						</div>
